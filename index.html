@@ -7,9 +7,18 @@
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP and lumpsum calculator. Estimate your mutual fund and investment returns in seconds based on amount, expected return and time period." />
+          content="Free online SIP and lumpsum calculator. Estimate your mutual fund and investment returns instantly based on amount, return rate and investment duration." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, mutual fund calculator, investment calculator, retirement calculator, sip returns" />
+          content="sip calculator, lumpsum calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
 
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -19,18 +28,18 @@
         <div class="hero-inner">
             <h1 class="hero-title">SIP & Lumpsum Returns Calculator</h1>
             <p class="hero-subtitle">
-                Quickly estimate how much your monthly SIP or one-time investment can grow over time.
+                Calculate your future investment value using SIP or one-time lump-sum investment.
             </p>
         </div>
     </header>
 
     <main class="main-layout">
 
-        <!-- SIP CARD -->
+        <!-- SIP Calculator Card -->
         <section class="card">
             <h2 class="card-title">SIP Calculator</h2>
             <p class="card-desc">
-                Calculate the future value of a monthly SIP based on amount, expected return and duration.
+                Estimate the future value of your monthly SIP contributions.
             </p>
 
             <div class="field">
@@ -54,11 +63,11 @@
             <div id="resultBox" class="result-box"></div>
         </section>
 
-        <!-- LUMPSUM CARD -->
+        <!-- Lumpsum Calculator Card -->
         <section class="card">
             <h2 class="card-title">Lumpsum Calculator</h2>
             <p class="card-desc">
-                Check how a one-time investment can grow over the years at a given expected return.
+                Calculate how much your one-time investment will grow in the future.
             </p>
 
             <div class="field">
@@ -84,64 +93,42 @@
 
     </main>
 
-    <!-- 🔽 NEW SEO SECTION STARTS HERE -->
+    <!-- SEO Content Section -->
     <section class="seo-section">
         <div class="seo-inner">
+
             <h2>What is a SIP (Systematic Investment Plan)?</h2>
             <p>
-                SIP (Systematic Investment Plan) is a way of investing a fixed amount regularly
-                into mutual funds or other investment products. Instead of putting a big amount
-                in one shot, you invest monthly (or weekly/quarterly) and let compounding work
-                over time.
-            </p>
-            <p>
-                For example, investing ₹5,000 every month for 10 years at 12% expected return
-                can grow into several lakhs. Our SIP calculator helps you quickly estimate this
-                maturity value and the profit over your invested amount.
+                SIP allows you to invest a fixed amount regularly (monthly) in mutual funds. It helps average out your cost and builds wealth through compounding.
             </p>
 
-            <h3>How this SIP calculator works</h3>
+            <h3>How our SIP calculator helps you</h3>
             <ul>
-                <li><strong>Monthly Investment:</strong> How much you want to invest every month.</li>
-                <li><strong>Expected Return (%):</strong> Average annual return you expect from your investment.</li>
-                <li><strong>Time Period (years):</strong> How long you will continue the SIP.</li>
+                <li>Enter monthly investment</li>
+                <li>Enter expected return rate</li>
+                <li>Enter number of years</li>
             </ul>
             <p>
-                Behind the scenes, the calculator uses the standard SIP formula with monthly compounding
-                to show:
-                <strong>Invested Amount</strong>, <strong>Maturity Amount</strong> and <strong>Total Profit</strong>.
+                The calculator instantly shows your invested amount, maturity value and total profit.
             </p>
 
-            <h2>What is a Lumpsum Investment?</h2>
+            <h2>What is Lumpsum Investment?</h2>
             <p>
-                A lumpsum investment is a one-time amount that you invest at once instead of spreading
-                it across months. For example, investing ₹5,00,000 today and leaving it for 10 years
-                at an expected return of 12% per year.
-            </p>
-            <p>
-                Our lumpsum calculator shows how much that single investment can grow over time, so you
-                can compare SIP vs lumpsum for your financial goals.
+                In a lumpsum investment, you invest a one-time amount and let it grow over time based on market returns.
             </p>
 
-            <h3>When should you use SIP vs Lumpsum?</h3>
+            <h3>When should you choose SIP vs Lumpsum?</h3>
             <ul>
-                <li><strong>Choose SIP</strong> if you get a monthly salary and want to invest regularly.</li>
-                <li><strong>Choose Lumpsum</strong> if you received a bonus, inheritance or have surplus cash.</li>
-                <li>You can also combine both: lumpsum at the start + SIP every month.</li>
+                <li>Choose SIP if you want disciplined monthly investing.</li>
+                <li>Choose Lumpsum if you have surplus money to invest at once.</li>
+                <li>Best approach: combine both for long-term wealth creation.</li>
             </ul>
 
-            <h3>Important note</h3>
-            <p>
-                The numbers shown by this calculator are <strong>estimates</strong> based on the return you enter.
-                Actual market returns can be higher or lower. Always invest as per your risk profile and
-                consult a financial advisor if needed.
-            </p>
         </div>
     </section>
-    <!-- 🔼 NEW SEO SECTION ENDS HERE -->
 
     <footer class="footer">
-        <p>© 2025 SIP Returns Calculator</p>
+        <p>© 2025 SIP & Lumpsum Calculator</p>
     </footer>
 
     <script src="script.js"></script>
