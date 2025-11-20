@@ -2,35 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>SIP Calculator</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>SIP & Lumpsum Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="container">
-    <h1>SIP Calculator</h1>
+    <!-- SIP CALCULATOR -->
+    <div class="container">
+        <h1>SIP Calculator</h1>
 
-    <div class="field">
-        <label for="monthly">Monthly Investment (₹)</label>
-        <input type="number" id="monthly" placeholder="e.g. 5000" />
+        <div class="field">
+            <label for="monthly">Monthly Investment (₹)</label>
+            <input type="number" id="monthly" placeholder="e.g. 5000" />
+        </div>
+
+        <div class="field">
+            <label for="rate">Expected Return (% per year)</label>
+            <input type="number" id="rate" placeholder="e.g. 12" />
+        </div>
+
+        <div class="field">
+            <label for="years">Time Period (years)</label>
+            <input type="number" id="years" placeholder="e.g. 10" />
+        </div>
+
+        <button onclick="calculate()">Calculate SIP</button>
+
+        <div id="error"></div>
+        <div id="resultBox"></div>
     </div>
 
-    <div class="field">
-        <label for="rate">Expected Return (% per year)</label>
-        <input type="number" id="rate" placeholder="e.g. 12" />
+    <!-- LUMPSUM CALCULATOR -->
+    <div class="container">
+        <h1>Lumpsum Calculator</h1>
+
+        <div class="field">
+            <label for="lsPrincipal">Lumpsum Amount (₹)</label>
+            <input type="number" id="lsPrincipal" placeholder="e.g. 500000" />
+        </div>
+
+        <div class="field">
+            <label for="lsRate">Expected Return (% per year)</label>
+            <input type="number" id="lsRate" placeholder="e.g. 12" />
+        </div>
+
+        <div class="field">
+            <label for="lsYears">Time Period (years)</label>
+            <input type="number" id="lsYears" placeholder="e.g. 10" />
+        </div>
+
+        <button onclick="calculateLumpsum()">Calculate Lumpsum</button>
+
+        <div id="lsError"></div>
+        <div id="lsResultBox"></div>
     </div>
 
-    <div class="field">
-        <label for="years">Time Period (years)</label>
-        <input type="number" id="years" placeholder="e.g. 10" />
-    </div>
-
-    <button onclick="calculate()">Calculate SIP</button>
-
-    <div id="error"></div>
-    <div id="resultBox"></div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
