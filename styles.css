@@ -7,12 +7,19 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: radial-gradient(circle at top, #e0ecff 0, #f3f4f6 45%, #eef2ff 100%);
     color: #111827;
+    scroll-behavior: smooth;
 }
 
 /* Hero / header */
 
 .hero {
-    padding: 24px 16px 10px;
+    padding: 16px 16px 8px;
+    background: linear-gradient(135deg, #1d4ed8, #4f46e5);
+    color: #e5e7eb;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
 .hero-inner {
@@ -20,17 +27,72 @@ body {
     margin: 0 auto;
 }
 
-.hero-title {
-    margin: 0 0 6px;
-    font-size: 1.9rem;
+/* Brand row */
+
+.brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: rgba(248, 250, 252, 0.12);
+    border: 1px solid rgba(191, 219, 254, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 700;
-    color: #111827;
+    color: #f9fafb;
+    font-size: 1.1rem;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title {
+    margin: 0 0 2px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f9fafb;
 }
 
 .hero-subtitle {
     margin: 0;
-    font-size: 0.95rem;
-    color: #4b5563;
+    font-size: 0.82rem;
+    color: #e5e7eb;
+}
+
+/* Navbar */
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.main-nav a {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #e5e7eb;
+    border: 1px solid rgba(191, 219, 254, 0.4);
+    background: rgba(15, 23, 42, 0.22);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.main-nav a:hover {
+    background: #f9fafb;
+    color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
 }
 
 /* 🔸 Ad slots */
@@ -48,7 +110,7 @@ body {
 }
 
 .ad-top {
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .ad-middle {
@@ -237,6 +299,7 @@ select:focus {
 .footer {
     text-align: center;
     font-size: 0.8rem;
-    color: #9ca3af;
+    color: #d1d5db;
     padding: 10px 0 18px;
+    background: #111827;
 }

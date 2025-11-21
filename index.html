@@ -26,12 +26,33 @@
 </head>
 <body>
 
+    <!-- HEADER + NAVBAR -->
     <header class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
-            <p class="hero-subtitle">
-                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS and SWP in one place.
-            </p>
+            <div class="brand-row">
+                <div class="brand-logo">₹</div>
+                <div class="brand-text">
+                    <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
+                    <p class="hero-subtitle">
+                        SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS & SWP – all in one place.
+                    </p>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <a href="#top">Home</a>
+                <a href="#sip">SIP</a>
+                <a href="#lumpsum">Lumpsum</a>
+                <a href="#fd">FD</a>
+                <a href="#rd">RD</a>
+                <a href="#ppf">PPF</a>
+                <a href="#emi">EMI</a>
+                <a href="#tax">Tax</a>
+                <a href="#cagr">CAGR</a>
+                <a href="#retirement">Retirement</a>
+                <a href="#nps">NPS</a>
+                <a href="#swp">SWP</a>
+            </nav>
         </div>
     </header>
 
@@ -41,10 +62,10 @@
         <!-- When AdSense is approved, replace this div with your ad code -->
     </div>
 
-    <main class="main-layout">
+    <main class="main-layout" id="top">
 
         <!-- SIP Calculator Card -->
-        <section class="card">
+        <section class="card" id="sip">
             <h2 class="card-title">SIP Calculator</h2>
             <p class="card-desc">
                 Estimate the future value of your monthly SIP contributions in mutual funds.
@@ -72,7 +93,7 @@
         </section>
 
         <!-- Lumpsum Calculator Card -->
-        <section class="card">
+        <section class="card" id="lumpsum">
             <h2 class="card-title">Lumpsum Calculator</h2>
             <p class="card-desc">
                 Calculate how much your one-time investment will grow in the future.
@@ -100,7 +121,7 @@
         </section>
 
         <!-- FD Calculator Card -->
-        <section class="card">
+        <section class="card" id="fd">
             <h2 class="card-title">FD Calculator</h2>
             <p class="card-desc">
                 Calculate the maturity value of your fixed deposit with quarterly compounding.
@@ -128,7 +149,7 @@
         </section>
 
         <!-- RD Calculator Card -->
-        <section class="card">
+        <section class="card" id="rd">
             <h2 class="card-title">RD Calculator</h2>
             <p class="card-desc">
                 Estimate the maturity value of your recurring deposit (monthly contributions).
@@ -156,7 +177,7 @@
         </section>
 
         <!-- PPF Calculator Card -->
-        <section class="card">
+        <section class="card" id="ppf">
             <h2 class="card-title">PPF Calculator (Yearly Investment)</h2>
             <p class="card-desc">
                 Estimate your PPF maturity by investing a fixed amount every year for a chosen tenure.
@@ -184,7 +205,7 @@
         </section>
 
         <!-- EMI Calculator Card -->
-        <section class="card">
+        <section class="card" id="emi">
             <h2 class="card-title">EMI Calculator</h2>
             <p class="card-desc">
                 Calculate your monthly EMI, total payment and total interest for a loan.
@@ -218,7 +239,7 @@
         </section>
 
         <!-- Income Tax Calculator Card -->
-        <section class="card">
+        <section class="card" id="tax">
             <h2 class="card-title">Income Tax Calculator (India)</h2>
             <p class="card-desc">
                 Estimate your annual income tax under Old or New regime (approximate, for guidance only).
@@ -244,7 +265,7 @@
         </section>
 
         <!-- CAGR Calculator Card -->
-        <section class="card">
+        <section class="card" id="cagr">
             <h2 class="card-title">CAGR Calculator</h2>
             <p class="card-desc">
                 Find the compound annual growth rate of an investment between a starting and ending value.
@@ -272,7 +293,7 @@
         </section>
 
         <!-- Retirement Calculator Card -->
-        <section class="card">
+        <section class="card" id="retirement">
             <h2 class="card-title">Retirement Corpus Calculator</h2>
             <p class="card-desc">
                 Estimate how much retirement corpus you may need based on current monthly expenses and inflation.
@@ -300,7 +321,7 @@
         </section>
 
         <!-- NPS Calculator Card -->
-        <section class="card">
+        <section class="card" id="nps">
             <h2 class="card-title">NPS Calculator</h2>
             <p class="card-desc">
                 Estimate NPS maturity by investing a fixed monthly contribution until retirement.
@@ -328,7 +349,7 @@
         </section>
 
         <!-- SWP Calculator Card -->
-        <section class="card">
+        <section class="card" id="swp">
             <h2 class="card-title">SWP Calculator</h2>
             <p class="card-desc">
                 Check how long your corpus can last if you withdraw a fixed amount every month (Systematic Withdrawal Plan).
