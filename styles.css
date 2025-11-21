@@ -33,7 +33,7 @@ body {
     color: #4b5563;
 }
 
-/* Main layout with two cards */
+/* Main layout with cards */
 
 .main-layout {
     max-width: 960px;
@@ -153,15 +153,6 @@ input[type="number"]:focus {
     margin: 3px 0;
 }
 
-/* Footer */
-
-.footer {
-    text-align: center;
-    font-size: 0.8rem;
-    color: #9ca3af;
-    padding: 10px 0 18px;
-}
-
 /* SEO text section */
 
 .seo-section {
@@ -202,4 +193,13 @@ input[type="number"]:focus {
 
 .seo-inner li {
     margin-bottom: 4px;
+}
+
+/* Footer */
+
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    padding: 10px 0 18px;
 }

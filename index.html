@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>SIP & Lumpsum Calculator | Online Investment Returns</title>
+    <title>SIP, Lumpsum & FD Calculator | Online Investment Returns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP and lumpsum calculator. Estimate your mutual fund and investment returns instantly based on amount, return rate and investment duration." />
+          content="Free online SIP, lumpsum and fixed deposit (FD) calculator. Estimate your mutual fund and FD returns instantly based on amount, interest rate and investment duration." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
+          content="sip calculator, lumpsum calculator, fd calculator, fixed deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -26,9 +26,9 @@
 
     <header class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">SIP & Lumpsum Returns Calculator</h1>
+            <h1 class="hero-title">SIP, Lumpsum & FD Returns Calculator</h1>
             <p class="hero-subtitle">
-                Calculate your future investment value using SIP or one-time lump-sum investment.
+                Calculate your future investment value using SIP, one-time lump-sum or fixed deposit (FD).
             </p>
         </div>
     </header>
@@ -91,6 +91,34 @@
             <div id="lsResultBox" class="result-box"></div>
         </section>
 
+        <!-- FD Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">FD Calculator</h2>
+            <p class="card-desc">
+                Calculate the maturity value of your fixed deposit with quarterly compounding.
+            </p>
+
+            <div class="field">
+                <label for="fdPrincipal">FD Amount (₹)</label>
+                <input type="number" id="fdPrincipal" placeholder="e.g. 500000" />
+            </div>
+
+            <div class="field">
+                <label for="fdRate">Interest Rate (% per year)</label>
+                <input type="number" id="fdRate" placeholder="e.g. 7" />
+            </div>
+
+            <div class="field">
+                <label for="fdYears">Time Period (years)</label>
+                <input type="number" id="fdYears" placeholder="e.g. 5" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateFd()">Calculate FD</button>
+
+            <div id="fdError" class="error-text"></div>
+            <div id="fdResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
@@ -99,36 +127,56 @@
 
             <h2>What is a SIP (Systematic Investment Plan)?</h2>
             <p>
-                SIP allows you to invest a fixed amount regularly (monthly) in mutual funds. It helps average out your cost and builds wealth through compounding.
+                SIP allows you to invest a fixed amount regularly (usually monthly) in mutual funds.
+                It helps average out your cost and builds wealth over time using the power of compounding.
             </p>
 
             <h3>How our SIP calculator helps you</h3>
             <ul>
-                <li>Enter monthly investment</li>
-                <li>Enter expected return rate</li>
-                <li>Enter number of years</li>
+                <li>Enter monthly investment amount.</li>
+                <li>Enter expected annual return rate.</li>
+                <li>Enter how many years you plan to invest.</li>
             </ul>
             <p>
-                The calculator instantly shows your invested amount, maturity value and total profit.
+                The calculator instantly shows your total invested amount, maturity value and total profit
+                based on the SIP formula with monthly compounding.
             </p>
 
             <h2>What is Lumpsum Investment?</h2>
             <p>
-                In a lumpsum investment, you invest a one-time amount and let it grow over time based on market returns.
+                In a lumpsum investment, you invest a one-time amount and let it grow for a number of years
+                at a certain expected return. This is common when you receive a bonus, inheritance or sell an asset.
             </p>
 
             <h3>When should you choose SIP vs Lumpsum?</h3>
             <ul>
-                <li>Choose SIP if you want disciplined monthly investing.</li>
-                <li>Choose Lumpsum if you have surplus money to invest at once.</li>
-                <li>Best approach: combine both for long-term wealth creation.</li>
+                <li>Choose SIP if you have regular monthly income and want disciplined investing.</li>
+                <li>Choose Lumpsum if you have surplus cash ready to invest immediately.</li>
+                <li>Many investors use both: one-time lumpsum + ongoing SIP.</li>
             </ul>
+
+            <h2>What is an FD (Fixed Deposit)?</h2>
+            <p>
+                A Fixed Deposit is a safe investment where you deposit a lump sum with a bank
+                for a fixed tenure at a fixed interest rate. In India, most FDs compound interest quarterly.
+            </p>
+            <p>
+                Our FD calculator estimates your invested amount, maturity amount and interest earned
+                using quarterly compounding, based on your principal, interest rate and time period.
+            </p>
+
+            <h3>Important note</h3>
+            <p>
+                All results shown by these calculators are estimates based on the inputs you provide.
+                Actual returns may vary depending on market performance, bank policies and tax treatment.
+                Always invest according to your risk profile and consider consulting a financial advisor.
+            </p>
 
         </div>
     </section>
 
     <footer class="footer">
-        <p>© 2025 SIP & Lumpsum Calculator</p>
+        <p>© 2025 SIP, Lumpsum & FD Calculator</p>
     </footer>
 
     <script src="script.js"></script>
