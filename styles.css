@@ -33,6 +33,41 @@ body {
     color: #4b5563;
 }
 
+/* 🔸 Ad slots */
+
+.ad-slot {
+    max-width: 960px;
+    margin: 6px auto 10px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px dashed #cbd5f5;
+    background: rgba(239, 246, 255, 0.8);
+}
+
+.ad-top {
+    margin-top: 4px;
+}
+
+.ad-middle {
+    margin-top: 4px;
+    margin-bottom: 14px;
+}
+
+.ad-bottom {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.ad-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
 /* Main layout with cards */
 
 .main-layout {
