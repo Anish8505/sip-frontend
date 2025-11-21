@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>
-        SIP, Lumpsum, FD, RD, PPF, EMI, Tax & CAGR Calculator (India)
+        SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement & NPS Calculator (India)
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India) and CAGR calculator. Estimate investment returns, loan EMIs and income tax instantly." />
+          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India), CAGR, Retirement corpus and NPS calculator. Estimate investment returns, loan EMIs, tax and retirement needs instantly." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, retirement calculator, nps calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -30,7 +30,7 @@
         <div class="hero-inner">
             <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
             <p class="hero-subtitle">
-                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax and CAGR in one place.
+                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement corpus and NPS in one place.
             </p>
         </div>
     </header>
@@ -259,6 +259,62 @@
             <div id="cagrResultBox" class="result-box"></div>
         </section>
 
+        <!-- Retirement Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">Retirement Corpus Calculator</h2>
+            <p class="card-desc">
+                Estimate how much retirement corpus you may need based on current monthly expenses and inflation.
+            </p>
+
+            <div class="field">
+                <label for="retExpense">Monthly Expense Today (₹)</label>
+                <input type="number" id="retExpense" placeholder="e.g. 30000" />
+            </div>
+
+            <div class="field">
+                <label for="retInflation">Expected Inflation Rate (% per year)</label>
+                <input type="number" id="retInflation" placeholder="e.g. 6" />
+            </div>
+
+            <div class="field">
+                <label for="retYears">Years Until Retirement</label>
+                <input type="number" id="retYears" placeholder="e.g. 25" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateRetirement()">Calculate Retirement Corpus</button>
+
+            <div id="retError" class="error-text"></div>
+            <div id="retResultBox" class="result-box"></div>
+        </section>
+
+        <!-- NPS Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">NPS Calculator</h2>
+            <p class="card-desc">
+                Estimate NPS maturity by investing a fixed monthly contribution until retirement.
+            </p>
+
+            <div class="field">
+                <label for="npsMonthly">Monthly NPS Contribution (₹)</label>
+                <input type="number" id="npsMonthly" placeholder="e.g. 5000" />
+            </div>
+
+            <div class="field">
+                <label for="npsRate">Expected Return (% per year)</label>
+                <input type="number" id="npsRate" placeholder="e.g. 10" />
+            </div>
+
+            <div class="field">
+                <label for="npsYears">Years to Retirement</label>
+                <input type="number" id="npsYears" placeholder="e.g. 25" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateNps()">Calculate NPS</button>
+
+            <div id="npsError" class="error-text"></div>
+            <div id="npsResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
@@ -267,8 +323,8 @@
 
             <h2>Investment & Tax Calculators in One Place</h2>
             <p>
-                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax and CAGR calculators so you can
-                quickly check how your money grows, what EMI you will pay and how much tax you may owe (approximate).
+                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement and NPS calculators so you can
+                quickly check how your money grows, what EMI you will pay, how much tax you may owe and what corpus you may need for retirement.
             </p>
 
             <h2>SIP (Systematic Investment Plan)</h2>
@@ -283,12 +339,13 @@
                 at a certain expected return. This is common when you receive a bonus, inheritance or sell an asset.
             </p>
 
-            <h2>FD, RD & PPF</h2>
+            <h2>FD, RD, PPF & NPS</h2>
             <p>
                 Fixed Deposit (FD) is a safe investment where you deposit a lump sum at a fixed interest rate.
                 Recurring Deposit (RD) is similar to SIP at a bank where you deposit a fixed amount every month.
                 Public Provident Fund (PPF) is a government-backed, tax-efficient long-term investment with
-                a typical tenure of 15 years and interest credited annually.
+                a typical tenure of 15 years. National Pension System (NPS) is a retirement-focused product
+                where you invest regularly for the long term and receive a mix of lump sum and pension at retirement.
             </p>
 
             <h2>EMI (Equated Monthly Instalment)</h2>
@@ -310,11 +367,18 @@
                 “If my investment moved from A to B in N years, what was the yearly growth rate?”
             </p>
 
+            <h2>Retirement Corpus & NPS</h2>
+            <p>
+                Retirement planning starts with your monthly expenses today and how inflation will increase them over time.
+                Our retirement and NPS calculators help you estimate how much money you may need in retirement
+                and how much your regular NPS contributions can grow to by the time you retire.
+            </p>
+
             <h3>Important Disclaimer</h3>
             <p>
                 All calculators on this page provide approximate values based on the inputs you provide and simplified formulas.
-                Actual returns, loan EMIs and tax liabilities may differ based on market conditions, bank or fund policies,
-                tax rules, deductions and surcharges. Always verify with official sources or a qualified financial advisor
+                Actual returns, loan EMIs, tax liabilities and retirement needs may differ based on market conditions, bank or fund policies,
+                tax rules, deductions, surcharges and your actual lifestyle. Always verify with official sources or a qualified financial advisor
                 before making final financial decisions.
             </p>
 

@@ -374,3 +374,101 @@ function calculateCagr() {
             errorDiv.textContent = "Something went wrong while calling the CAGR API.";
         });
 }
+
+// ---------------- RETIREMENT CORPUS CALCULATOR ----------------
+function calculateRetirement() {
+    const expense = document.getElementById("retExpense").value;
+    const inflation = document.getElementById("retInflation").value;
+    const years = document.getElementById("retYears").value;
+    const errorDiv = document.getElementById("retError");
+    const resultBox = document.getElementById("retResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!expense || !inflation || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (expense <= 0 || inflation < 0 || years <= 0) {
+        errorDiv.textContent = "Values must be valid and greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/retirement?expense=${expense}&inflation=${inflation}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>Retirement Corpus Estimate</h3>
+                <p><strong>Monthly Expense Today:</strong> ₹${data.monthlyExpenseToday.toLocaleString("en-IN")}</p>
+                <p><strong>Years Until Retirement:</strong> ${data.years} years</p>
+                <p><strong>Expected Inflation:</strong> ${data.inflationRate.toFixed(2)}% per year</p>
+                <p><strong>Estimated Monthly Expense at Retirement:</strong> ₹${data.expenseAtRetirement.toLocaleString("en-IN")}</p>
+                <p><strong>Estimated Yearly Expense at Retirement:</strong> ₹${data.yearlyExpenseAtRetirement.toLocaleString("en-IN")}</p>
+                <p><strong>Approx. Retirement Corpus Needed:</strong> ₹${data.requiredCorpus.toLocaleString("en-IN")}</p>
+                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
+                    This is a simple estimate using inflation and a 4% safe withdrawal rule.
+                    Actual retirement needs depend on lifestyle, returns and longevity. Please treat this as a planning aid, not a final recommendation.
+                </p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the Retirement API.";
+        });
+}
+
+// ---------------- NPS CALCULATOR ----------------
+function calculateNps() {
+    const monthly = document.getElementById("npsMonthly").value;
+    const rate = document.getElementById("npsRate").value;
+    const years = document.getElementById("npsYears").value;
+    const errorDiv = document.getElementById("npsError");
+    const resultBox = document.getElementById("npsResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!monthly || !rate || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (monthly <= 0 || rate <= 0 || years <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/nps?monthly=${monthly}&rate=${rate}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>NPS Results</h3>
+                <p><strong>Monthly Contribution:</strong> ₹${data.monthlyContribution.toLocaleString("en-IN")}</p>
+                <p><strong>Years to Retirement:</strong> ${data.years} years</p>
+                <p><strong>Expected Return:</strong> ${data.rate.toFixed(2)}% per year</p>
+                <p><strong>Total Amount Invested:</strong> ₹${data.totalInvestment.toLocaleString("en-IN")}</p>
+                <p><strong>Estimated Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
+                <p><strong>Total Gain:</strong> ₹${data.totalGain.toLocaleString("en-IN")}</p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the NPS API.";
+        });
+}
