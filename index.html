@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>
-        SIP, Lumpsum, FD, RD, EMI, Tax & CAGR Calculator (India)
+        SIP, Lumpsum, FD, RD, PPF, EMI, Tax & CAGR Calculator (India)
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, FD, RD, EMI, Income Tax (India) and CAGR calculator. Estimate investment returns, loan EMIs and income tax instantly." />
+          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India) and CAGR calculator. Estimate investment returns, loan EMIs and income tax instantly." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, income tax calculator india, cagr calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -30,7 +30,7 @@
         <div class="hero-inner">
             <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
             <p class="hero-subtitle">
-                Calculate SIP, Lumpsum, FD, RD, EMI, Income Tax and CAGR in one place.
+                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax and CAGR in one place.
             </p>
         </div>
     </header>
@@ -149,6 +149,34 @@
             <div id="rdResultBox" class="result-box"></div>
         </section>
 
+        <!-- PPF Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">PPF Calculator (Yearly Investment)</h2>
+            <p class="card-desc">
+                Estimate your PPF maturity by investing a fixed amount every year for a chosen tenure.
+            </p>
+
+            <div class="field">
+                <label for="ppfYearly">Yearly Investment (₹)</label>
+                <input type="number" id="ppfYearly" placeholder="e.g. 150000" />
+            </div>
+
+            <div class="field">
+                <label for="ppfRate">PPF Interest Rate (% per year)</label>
+                <input type="number" id="ppfRate" placeholder="e.g. 7.1" />
+            </div>
+
+            <div class="field">
+                <label for="ppfYears">Time Period (years)</label>
+                <input type="number" id="ppfYears" placeholder="e.g. 15" />
+            </div>
+
+            <button class="primary-btn" onclick="calculatePpf()">Calculate PPF</button>
+
+            <div id="ppfError" class="error-text"></div>
+            <div id="ppfResultBox" class="result-box"></div>
+        </section>
+
         <!-- EMI Calculator Card -->
         <section class="card">
             <h2 class="card-title">EMI Calculator</h2>
@@ -239,7 +267,7 @@
 
             <h2>Investment & Tax Calculators in One Place</h2>
             <p>
-                This page brings together SIP, Lumpsum, FD, RD, EMI, Income Tax and CAGR calculators so you can
+                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax and CAGR calculators so you can
                 quickly check how your money grows, what EMI you will pay and how much tax you may owe (approximate).
             </p>
 
@@ -255,10 +283,12 @@
                 at a certain expected return. This is common when you receive a bonus, inheritance or sell an asset.
             </p>
 
-            <h2>FD & RD</h2>
+            <h2>FD, RD & PPF</h2>
             <p>
                 Fixed Deposit (FD) is a safe investment where you deposit a lump sum at a fixed interest rate.
                 Recurring Deposit (RD) is similar to SIP at a bank where you deposit a fixed amount every month.
+                Public Provident Fund (PPF) is a government-backed, tax-efficient long-term investment with
+                a typical tenure of 15 years and interest credited annually.
             </p>
 
             <h2>EMI (Equated Monthly Instalment)</h2>

@@ -177,6 +177,52 @@ function calculateRd() {
         });
 }
 
+// ---------------- PPF CALCULATOR (YEARLY) ----------------
+function calculatePpf() {
+    const yearly = document.getElementById("ppfYearly").value;
+    const rate = document.getElementById("ppfRate").value;
+    const years = document.getElementById("ppfYears").value;
+    const errorDiv = document.getElementById("ppfError");
+    const resultBox = document.getElementById("ppfResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!yearly || !rate || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (yearly <= 0 || rate <= 0 || years <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/ppf?yearly=${yearly}&rate=${rate}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>PPF Results (Yearly Investment)</h3>
+                <p><strong>Yearly Investment:</strong> ₹${data.yearlyInvestment.toLocaleString("en-IN")}</p>
+                <p><strong>Time Period:</strong> ${data.tenureYears} years</p>
+                <p><strong>Total Invested:</strong> ₹${data.totalInvestment.toLocaleString("en-IN")}</p>
+                <p><strong>Total Interest Earned:</strong> ₹${data.totalInterest.toLocaleString("en-IN")}</p>
+                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the PPF API.";
+        });
+}
+
 // ---------------- EMI CALCULATOR ----------------
 function calculateEmi() {
     const principal = document.getElementById("emiPrincipal").value;
