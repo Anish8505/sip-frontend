@@ -176,3 +176,59 @@ function calculateRd() {
             errorDiv.textContent = "Something went wrong while calling the RD API.";
         });
 }
+
+// ---------------- EMI CALCULATOR ----------------
+function calculateEmi() {
+    const principal = document.getElementById("emiPrincipal").value;
+    const rate = document.getElementById("emiRate").value;
+    const years = document.getElementById("emiYears").value;
+    const errorDiv = document.getElementById("emiError");
+    const resultBox = document.getElementById("emiResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!principal || !rate || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (principal <= 0 || rate <= 0 || years <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/emi?principal=${principal}&rate=${rate}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            // data.investedAmount = principal
+            // data.maturityAmount = total paid
+            // data.profit = interest
+            const principalVal = data.investedAmount;
+            const totalPaid = data.maturityAmount;
+            const interest = data.profit;
+
+            // derive EMI back for display: totalPaid / months
+            const months = years * 12;
+            const emi = totalPaid / months;
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>EMI Results</h3>
+                <p><strong>Monthly EMI:</strong> ₹${emi.toFixed(2).toLocaleString("en-IN")}</p>
+                <p><strong>Total Amount Paid:</strong> ₹${totalPaid.toLocaleString("en-IN")}</p>
+                <p><strong>Total Interest Paid:</strong> ₹${interest.toLocaleString("en-IN")}</p>
+                <p><strong>Loan Amount (Principal):</strong> ₹${principalVal.toLocaleString("en-IN")}</p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the EMI API.";
+        });
+}

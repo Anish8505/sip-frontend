@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>SIP, Lumpsum, FD & RD Calculator | Online Investment Returns</title>
+    <title>SIP, Lumpsum, FD, RD & EMI Calculator | Online Investment Returns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, Fixed Deposit (FD) and Recurring Deposit (RD) calculator. Estimate your investment returns instantly based on amount, interest rate and duration." />
+          content="Free online SIP, Lumpsum, Fixed Deposit (FD), Recurring Deposit (RD) and EMI calculator. Estimate your investment and loan returns instantly based on amount, interest rate and duration." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, fixed deposit calculator, recurring deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, loan emi calculator, fixed deposit calculator, recurring deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -26,9 +26,10 @@
 
     <header class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">SIP, Lumpsum, FD & RD Returns Calculator</h1>
+            <h1 class="hero-title">SIP, Lumpsum, FD, RD & EMI Returns Calculator</h1>
             <p class="hero-subtitle">
-                Calculate your future investment value using SIP, one-time lumpsum, fixed deposit (FD) or recurring deposit (RD).
+                Quickly calculate your investment and loan values using SIP, one-time lumpsum, fixed deposit (FD),
+                recurring deposit (RD) or EMI.
             </p>
         </div>
     </header>
@@ -39,7 +40,7 @@
         <section class="card">
             <h2 class="card-title">SIP Calculator</h2>
             <p class="card-desc">
-                Estimate the future value of your monthly SIP contributions.
+                Estimate the future value of your monthly SIP contributions in mutual funds.
             </p>
 
             <div class="field">
@@ -147,6 +148,34 @@
             <div id="rdResultBox" class="result-box"></div>
         </section>
 
+        <!-- EMI Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">EMI Calculator</h2>
+            <p class="card-desc">
+                Calculate your monthly EMI, total payment and total interest for a loan.
+            </p>
+
+            <div class="field">
+                <label for="emiPrincipal">Loan Amount (₹)</label>
+                <input type="number" id="emiPrincipal" placeholder="e.g. 1000000" />
+            </div>
+
+            <div class="field">
+                <label for="emiRate">Interest Rate (% per year)</label>
+                <input type="number" id="emiRate" placeholder="e.g. 10" />
+            </div>
+
+            <div class="field">
+                <label for="emiYears">Loan Tenure (years)</label>
+                <input type="number" id="emiYears" placeholder="e.g. 10" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateEmi()">Calculate EMI</button>
+
+            <div id="emiError" class="error-text"></div>
+            <div id="emiResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
@@ -203,18 +232,28 @@
                 and how much interest you earn by the end of the RD tenure.
             </p>
 
+            <h2>What is an EMI (Equated Monthly Instalment)?</h2>
+            <p>
+                EMI is the fixed amount you pay every month towards a loan such as a home loan, car loan or personal loan.
+                Each EMI contains both interest and principal repayment.
+            </p>
+            <p>
+                Our EMI calculator shows your monthly EMI, total amount paid over the entire tenure
+                and the total interest you will pay on your loan, based on your loan amount, interest rate and tenure.
+            </p>
+
             <h3>Important note</h3>
             <p>
                 All results shown by these calculators are estimates based on the inputs you provide.
-                Actual returns may vary depending on market performance, bank policies and tax treatment.
-                Always invest according to your risk profile and consider consulting a financial advisor.
+                Actual returns and EMI values may vary depending on market conditions, bank policies and tax treatment.
+                Always read the fine print and consult your bank or financial advisor for final numbers.
             </p>
 
         </div>
     </section>
 
     <footer class="footer">
-        <p>© 2025 SIP, Lumpsum, FD & RD Calculator</p>
+        <p>© 2025 SIP, Lumpsum, FD, RD & EMI Calculator</p>
     </footer>
 
     <script src="script.js"></script>
