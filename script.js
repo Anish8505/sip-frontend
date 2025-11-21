@@ -472,3 +472,57 @@ function calculateNps() {
             errorDiv.textContent = "Something went wrong while calling the NPS API.";
         });
 }
+
+// ---------------- SWP CALCULATOR ----------------
+function calculateSwp() {
+    const corpus = document.getElementById("swpCorpus").value;
+    const rate = document.getElementById("swpRate").value;
+    const monthly = document.getElementById("swpMonthly").value;
+    const errorDiv = document.getElementById("swpError");
+    const resultBox = document.getElementById("swpResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!corpus || !rate || !monthly) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (corpus <= 0 || rate < 0 || monthly <= 0) {
+        errorDiv.textContent = "Values must be valid and greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/swp?corpus=${corpus}&rate=${rate}&monthly=${monthly}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            const years = data.yearsLasted;
+            const months = data.monthsLasted;
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>SWP Results</h3>
+                <p><strong>Starting Corpus:</strong> ₹${data.startingCorpus.toLocaleString("en-IN")}</p>
+                <p><strong>Monthly Withdrawal:</strong> ₹${data.monthlyWithdrawal.toLocaleString("en-IN")}</p>
+                <p><strong>Expected Return:</strong> ${data.rate.toFixed(2)}% per year</p>
+                <p><strong>Total Amount Withdrawn:</strong> ₹${data.totalWithdrawn.toLocaleString("en-IN")}</p>
+                <p><strong>Total Interest Earned:</strong> ₹${data.totalInterestEarned.toLocaleString("en-IN")}</p>
+                <p><strong>Corpus lasts for approx:</strong> ${months} months (~${years.toFixed(2)} years)</p>
+                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
+                    This is a simplified SWP estimate assuming fixed returns and withdrawals.
+                    Real-life results will vary with market performance and actual withdrawal patterns.
+                </p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the SWP API.";
+        });
+}

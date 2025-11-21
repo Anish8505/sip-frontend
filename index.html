@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>
-        SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement & NPS Calculator (India)
+        SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement, NPS & SWP Calculator (India)
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India), CAGR, Retirement corpus and NPS calculator. Estimate investment returns, loan EMIs, tax and retirement needs instantly." />
+          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India), CAGR, Retirement, NPS and SWP calculators. Estimate investment returns, EMIs, tax, retirement corpus and withdrawals instantly." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, retirement calculator, nps calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, retirement calculator, nps calculator, swp calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -30,7 +30,7 @@
         <div class="hero-inner">
             <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
             <p class="hero-subtitle">
-                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement corpus and NPS in one place.
+                Calculate SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS and SWP in one place.
             </p>
         </div>
     </header>
@@ -315,71 +315,81 @@
             <div id="npsResultBox" class="result-box"></div>
         </section>
 
+        <!-- SWP Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">SWP Calculator</h2>
+            <p class="card-desc">
+                Check how long your corpus can last if you withdraw a fixed amount every month (Systematic Withdrawal Plan).
+            </p>
+
+            <div class="field">
+                <label for="swpCorpus">Starting Corpus (₹)</label>
+                <input type="number" id="swpCorpus" placeholder="e.g. 3000000" />
+            </div>
+
+            <div class="field">
+                <label for="swpRate">Expected Return (% per year)</label>
+                <input type="number" id="swpRate" placeholder="e.g. 8" />
+            </div>
+
+            <div class="field">
+                <label for="swpMonthly">Monthly Withdrawal (₹)</label>
+                <input type="number" id="swpMonthly" placeholder="e.g. 25000" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateSwp()">Calculate SWP</button>
+
+            <div id="swpError" class="error-text"></div>
+            <div id="swpResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
     <section class="seo-section">
         <div class="seo-inner">
 
-            <h2>Investment & Tax Calculators in One Place</h2>
+            <h2>Investment, Tax & Retirement Calculators in One Place</h2>
             <p>
-                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement and NPS calculators so you can
-                quickly check how your money grows, what EMI you will pay, how much tax you may owe and what corpus you may need for retirement.
+                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS and SWP calculators so you can
+                quickly check how your money grows, what EMI you will pay, how much tax you may owe, how your retirement corpus might look
+                and how long withdrawals can last.
             </p>
 
-            <h2>SIP (Systematic Investment Plan)</h2>
+            <h2>SIP & Lumpsum</h2>
             <p>
-                SIP allows you to invest a fixed amount regularly (usually monthly) in mutual funds.
-                It helps average out your cost and builds wealth over time using the power of compounding.
-            </p>
-
-            <h2>Lumpsum Investment</h2>
-            <p>
-                In a lumpsum investment, you invest a one-time amount and let it grow for a number of years
-                at a certain expected return. This is common when you receive a bonus, inheritance or sell an asset.
+                SIP allows you to invest a fixed amount regularly in mutual funds, while lumpsum is a one-time investment.
+                Both rely on compounding returns over time to grow your wealth.
             </p>
 
             <h2>FD, RD, PPF & NPS</h2>
             <p>
-                Fixed Deposit (FD) is a safe investment where you deposit a lump sum at a fixed interest rate.
-                Recurring Deposit (RD) is similar to SIP at a bank where you deposit a fixed amount every month.
-                Public Provident Fund (PPF) is a government-backed, tax-efficient long-term investment with
-                a typical tenure of 15 years. National Pension System (NPS) is a retirement-focused product
-                where you invest regularly for the long term and receive a mix of lump sum and pension at retirement.
+                Fixed Deposit (FD) is a safe investment at a fixed interest rate. Recurring Deposit (RD) lets you invest monthly at a bank.
+                Public Provident Fund (PPF) is a tax-efficient, government-backed long-term scheme. National Pension System (NPS) is a
+                retirement-focused product where you invest regularly for the long term and receive a mix of lump sum and pension at retirement.
             </p>
 
-            <h2>EMI (Equated Monthly Instalment)</h2>
+            <h2>EMI & Income Tax</h2>
             <p>
-                EMI is the fixed amount you pay every month towards a loan such as a home loan, car loan or personal loan.
-                Each EMI has both interest and principal. Our calculator shows EMI, total amount paid and total interest.
+                EMI is the fixed amount you pay each month towards a home loan, car loan or personal loan.
+                The income tax calculator uses simple Indian slabs for Old and New regimes plus 4% health & education cess
+                to estimate your tax, net income after tax and effective tax rate.
             </p>
 
-            <h2>Income Tax Calculator (India)</h2>
+            <h2>CAGR, Retirement Corpus, NPS & SWP</h2>
             <p>
-                The income tax calculator uses simple Indian slabs for Old and New regimes and adds 4% health & education cess.
-                It shows approximate tax payable, net income after tax and effective tax rate.
-            </p>
-
-            <h2>CAGR (Compounded Annual Growth Rate)</h2>
-            <p>
-                CAGR tells you your average annual growth rate between a starting value and an ending value.
-                It smooths out ups and downs and gives a single percentage that answers:
-                “If my investment moved from A to B in N years, what was the yearly growth rate?”
-            </p>
-
-            <h2>Retirement Corpus & NPS</h2>
-            <p>
-                Retirement planning starts with your monthly expenses today and how inflation will increase them over time.
-                Our retirement and NPS calculators help you estimate how much money you may need in retirement
-                and how much your regular NPS contributions can grow to by the time you retire.
+                CAGR shows your average annual growth rate between a starting and ending value. Retirement calculators help
+                you estimate how much corpus you may need based on inflation and expenses. NPS calculators estimate how much
+                your monthly retirement contributions can grow to. SWP calculators help you understand how long your corpus
+                can last if you withdraw a fixed amount every month after retirement.
             </p>
 
             <h3>Important Disclaimer</h3>
             <p>
                 All calculators on this page provide approximate values based on the inputs you provide and simplified formulas.
-                Actual returns, loan EMIs, tax liabilities and retirement needs may differ based on market conditions, bank or fund policies,
-                tax rules, deductions, surcharges and your actual lifestyle. Always verify with official sources or a qualified financial advisor
-                before making final financial decisions.
+                Actual returns, loan EMIs, tax liabilities, retirement needs and withdrawal durations may differ based on market conditions,
+                bank or fund policies, tax rules, deductions, surcharges and your actual lifestyle. Always verify with official sources
+                or a qualified financial advisor before making final financial decisions.
             </p>
 
         </div>
