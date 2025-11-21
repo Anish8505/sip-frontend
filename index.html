@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>
-        SIP, Lumpsum, FD, RD, EMI & Income Tax Calculator (India)
+        SIP, Lumpsum, FD, RD, EMI, Tax & CAGR Calculator (India)
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, FD, RD, EMI and Income Tax calculator (India). Estimate investment returns, loan EMIs and income tax instantly based on amount, interest rate and duration." />
+          content="Free online SIP, Lumpsum, FD, RD, EMI, Income Tax (India) and CAGR calculator. Estimate investment returns, loan EMIs and income tax instantly." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, income tax calculator india, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, income tax calculator india, cagr calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -30,7 +30,7 @@
         <div class="hero-inner">
             <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
             <p class="hero-subtitle">
-                Calculate SIP, Lumpsum, FD, RD, EMI and Income Tax in one place.
+                Calculate SIP, Lumpsum, FD, RD, EMI, Income Tax and CAGR in one place.
             </p>
         </div>
     </header>
@@ -203,6 +203,34 @@
             <div id="taxResultBox" class="result-box"></div>
         </section>
 
+        <!-- CAGR Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">CAGR Calculator</h2>
+            <p class="card-desc">
+                Find the compound annual growth rate of an investment between a starting and ending value.
+            </p>
+
+            <div class="field">
+                <label for="cagrInitial">Initial Value (₹)</label>
+                <input type="number" id="cagrInitial" placeholder="e.g. 100000" />
+            </div>
+
+            <div class="field">
+                <label for="cagrFinal">Final Value (₹)</label>
+                <input type="number" id="cagrFinal" placeholder="e.g. 250000" />
+            </div>
+
+            <div class="field">
+                <label for="cagrYears">Time Period (years)</label>
+                <input type="number" id="cagrYears" placeholder="e.g. 5" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateCagr()">Calculate CAGR</button>
+
+            <div id="cagrError" class="error-text"></div>
+            <div id="cagrResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
@@ -211,8 +239,8 @@
 
             <h2>Investment & Tax Calculators in One Place</h2>
             <p>
-                This page brings together SIP, Lumpsum, FD, RD, EMI and Income Tax calculators so you can
-                quickly check how your money grows and how much tax you may need to pay (approximate).
+                This page brings together SIP, Lumpsum, FD, RD, EMI, Income Tax and CAGR calculators so you can
+                quickly check how your money grows, what EMI you will pay and how much tax you may owe (approximate).
             </p>
 
             <h2>SIP (Systematic Investment Plan)</h2>
@@ -242,13 +270,19 @@
             <h2>Income Tax Calculator (India)</h2>
             <p>
                 The income tax calculator uses simple Indian slabs for Old and New regimes and adds 4% health & education cess.
-                It shows your approximate tax payable, net income after tax and effective tax rate.
-                This tool is for quick estimation and learning purposes only.
+                It shows approximate tax payable, net income after tax and effective tax rate.
+            </p>
+
+            <h2>CAGR (Compounded Annual Growth Rate)</h2>
+            <p>
+                CAGR tells you your average annual growth rate between a starting value and an ending value.
+                It smooths out ups and downs and gives a single percentage that answers:
+                “If my investment moved from A to B in N years, what was the yearly growth rate?”
             </p>
 
             <h3>Important Disclaimer</h3>
             <p>
-                All calculators on this page provide approximate values based on the inputs you give and simplified formulas.
+                All calculators on this page provide approximate values based on the inputs you provide and simplified formulas.
                 Actual returns, loan EMIs and tax liabilities may differ based on market conditions, bank or fund policies,
                 tax rules, deductions and surcharges. Always verify with official sources or a qualified financial advisor
                 before making final financial decisions.

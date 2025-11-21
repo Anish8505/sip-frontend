@@ -281,3 +281,50 @@ function calculateTax() {
             errorDiv.textContent = "Something went wrong while calling the Tax API.";
         });
 }
+
+// ---------------- CAGR CALCULATOR ----------------
+function calculateCagr() {
+    const initial = document.getElementById("cagrInitial").value;
+    const finalVal = document.getElementById("cagrFinal").value;
+    const years = document.getElementById("cagrYears").value;
+    const errorDiv = document.getElementById("cagrError");
+    const resultBox = document.getElementById("cagrResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!initial || !finalVal || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (initial <= 0 || finalVal <= 0 || years <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/cagr?initial=${initial}&final=${finalVal}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>CAGR Results</h3>
+                <p><strong>Initial Value:</strong> ₹${data.initialAmount.toLocaleString("en-IN")}</p>
+                <p><strong>Final Value:</strong> ₹${data.finalAmount.toLocaleString("en-IN")}</p>
+                <p><strong>Time Period:</strong> ${data.years} years</p>
+                <p><strong>Total Gain:</strong> ₹${data.totalGain.toLocaleString("en-IN")}</p>
+                <p><strong>Total Return:</strong> ${data.totalReturnPercent.toFixed(2)}%</p>
+                <p><strong>CAGR (per year):</strong> ${data.cagrPercent.toFixed(2)}%</p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the CAGR API.";
+        });
+}
