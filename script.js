@@ -132,3 +132,47 @@ function calculateFd() {
             errorDiv.textContent = "Something went wrong while calling the FD API.";
         });
 }
+
+// ---------------- RD CALCULATOR ----------------
+function calculateRd() {
+    const monthly = document.getElementById("rdMonthly").value;
+    const rate = document.getElementById("rdRate").value;
+    const years = document.getElementById("rdYears").value;
+    const errorDiv = document.getElementById("rdError");
+    const resultBox = document.getElementById("rdResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!monthly || !rate || !years) {
+        errorDiv.textContent = "Please fill all the fields.";
+        return;
+    }
+
+    if (monthly <= 0 || rate <= 0 || years <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/rd?monthly=${monthly}&rate=${rate}&years=${years}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>RD Results</h3>
+                <p><strong>Total Deposited:</strong> ₹${data.investedAmount.toLocaleString("en-IN")}</p>
+                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
+                <p><strong>Total Interest Earned:</strong> ₹${data.profit.toLocaleString("en-IN")}</p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the RD API.";
+        });
+}

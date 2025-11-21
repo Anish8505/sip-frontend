@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>SIP, Lumpsum & FD Calculator | Online Investment Returns</title>
+    <title>SIP, Lumpsum, FD & RD Calculator | Online Investment Returns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, lumpsum and fixed deposit (FD) calculator. Estimate your mutual fund and FD returns instantly based on amount, interest rate and investment duration." />
+          content="Free online SIP, Lumpsum, Fixed Deposit (FD) and Recurring Deposit (RD) calculator. Estimate your investment returns instantly based on amount, interest rate and duration." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, fixed deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, fixed deposit calculator, recurring deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -26,9 +26,9 @@
 
     <header class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">SIP, Lumpsum & FD Returns Calculator</h1>
+            <h1 class="hero-title">SIP, Lumpsum, FD & RD Returns Calculator</h1>
             <p class="hero-subtitle">
-                Calculate your future investment value using SIP, one-time lump-sum or fixed deposit (FD).
+                Calculate your future investment value using SIP, one-time lumpsum, fixed deposit (FD) or recurring deposit (RD).
             </p>
         </div>
     </header>
@@ -119,6 +119,34 @@
             <div id="fdResultBox" class="result-box"></div>
         </section>
 
+        <!-- RD Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">RD Calculator</h2>
+            <p class="card-desc">
+                Estimate the maturity value of your recurring deposit (monthly contributions).
+            </p>
+
+            <div class="field">
+                <label for="rdMonthly">Monthly Deposit (₹)</label>
+                <input type="number" id="rdMonthly" placeholder="e.g. 5000" />
+            </div>
+
+            <div class="field">
+                <label for="rdRate">Interest Rate (% per year)</label>
+                <input type="number" id="rdRate" placeholder="e.g. 7" />
+            </div>
+
+            <div class="field">
+                <label for="rdYears">Time Period (years)</label>
+                <input type="number" id="rdYears" placeholder="e.g. 5" />
+            </div>
+
+            <button class="primary-btn" onclick="calculateRd()">Calculate RD</button>
+
+            <div id="rdError" class="error-text"></div>
+            <div id="rdResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
@@ -158,11 +186,21 @@
             <h2>What is an FD (Fixed Deposit)?</h2>
             <p>
                 A Fixed Deposit is a safe investment where you deposit a lump sum with a bank
-                for a fixed tenure at a fixed interest rate. In India, most FDs compound interest quarterly.
+                for a fixed tenure at a fixed interest rate. In India, many FDs compound interest quarterly.
             </p>
             <p>
                 Our FD calculator estimates your invested amount, maturity amount and interest earned
                 using quarterly compounding, based on your principal, interest rate and time period.
+            </p>
+
+            <h2>What is an RD (Recurring Deposit)?</h2>
+            <p>
+                A Recurring Deposit is similar to SIP in a bank: you deposit a fixed amount every month
+                for a fixed tenure, and earn interest on your growing balance.
+            </p>
+            <p>
+                Our RD calculator helps you see how your monthly deposits grow over time,
+                and how much interest you earn by the end of the RD tenure.
             </p>
 
             <h3>Important note</h3>
@@ -176,7 +214,7 @@
     </section>
 
     <footer class="footer">
-        <p>© 2025 SIP, Lumpsum & FD Calculator</p>
+        <p>© 2025 SIP, Lumpsum, FD & RD Calculator</p>
     </footer>
 
     <script src="script.js"></script>
