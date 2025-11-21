@@ -199,6 +199,9 @@ function calculateEmi() {
         return;
     }
 
+    const yearsNum = Number(years);
+    const months = yearsNum * 12;
+
     fetch(`${API_BASE_URL}/api/emi?principal=${principal}&rate=${rate}&years=${years}`)
         .then(res => {
             if (!res.ok) {
@@ -207,21 +210,20 @@ function calculateEmi() {
             return res.json();
         })
         .then(data => {
-            // data.investedAmount = principal
-            // data.maturityAmount = total paid
-            // data.profit = interest
             const principalVal = data.investedAmount;
             const totalPaid = data.maturityAmount;
             const interest = data.profit;
 
-            // derive EMI back for display: totalPaid / months
-            const months = years * 12;
             const emi = totalPaid / months;
+            const emiFormatted = emi.toLocaleString("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
 
             resultBox.style.display = "block";
             resultBox.innerHTML = `
                 <h3>EMI Results</h3>
-                <p><strong>Monthly EMI:</strong> ₹${emi.toFixed(2).toLocaleString("en-IN")}</p>
+                <p><strong>Monthly EMI:</strong> ₹${emiFormatted}</p>
                 <p><strong>Total Amount Paid:</strong> ₹${totalPaid.toLocaleString("en-IN")}</p>
                 <p><strong>Total Interest Paid:</strong> ₹${interest.toLocaleString("en-IN")}</p>
                 <p><strong>Loan Amount (Principal):</strong> ₹${principalVal.toLocaleString("en-IN")}</p>
@@ -230,5 +232,52 @@ function calculateEmi() {
         .catch(err => {
             console.error(err);
             errorDiv.textContent = "Something went wrong while calling the EMI API.";
+        });
+}
+
+// ---------------- INCOME TAX CALCULATOR (INDIA) ----------------
+function calculateTax() {
+    const income = document.getElementById("taxIncome").value;
+    const regime = document.getElementById("taxRegime").value;
+    const errorDiv = document.getElementById("taxError");
+    const resultBox = document.getElementById("taxResultBox");
+
+    errorDiv.textContent = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if (!income) {
+        errorDiv.textContent = "Please enter your annual taxable income.";
+        return;
+    }
+
+    if (income <= 0) {
+        errorDiv.textContent = "Income must be greater than zero.";
+        return;
+    }
+
+    fetch(`${API_BASE_URL}/api/tax?income=${income}&regime=${regime}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("API error: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => {
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h3>Income Tax Results (${data.regime === "new" ? "New Regime" : "Old Regime"})</h3>
+                <p><strong>Annual Income:</strong> ₹${data.income.toLocaleString("en-IN")}</p>
+                <p><strong>Estimated Tax Payable (incl. cess):</strong> ₹${data.tax.toLocaleString("en-IN")}</p>
+                <p><strong>Net Income After Tax:</strong> ₹${data.netIncome.toLocaleString("en-IN")}</p>
+                <p><strong>Effective Tax Rate:</strong> ${data.effectiveRate.toFixed(2)}%</p>
+                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
+                    This is an approximate calculation using simple slabs and 4% cess, for learning and planning only.
+                </p>
+            `;
+        })
+        .catch(err => {
+            console.error(err);
+            errorDiv.textContent = "Something went wrong while calling the Tax API.";
         });
 }

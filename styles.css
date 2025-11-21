@@ -80,7 +80,8 @@ label {
     color: #4b5563;
 }
 
-input[type="number"] {
+input[type="number"],
+select {
     width: 100%;
     padding: 7px 9px;
     border-radius: 8px;
@@ -91,7 +92,8 @@ input[type="number"] {
     background: #f9fafb;
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus,
+select:focus {
     border-color: #2563eb;
     box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
     background: #ffffff;

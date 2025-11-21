@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>SIP, Lumpsum, FD, RD & EMI Calculator | Online Investment Returns</title>
+    <title>
+        SIP, Lumpsum, FD, RD, EMI & Income Tax Calculator (India)
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, Fixed Deposit (FD), Recurring Deposit (RD) and EMI calculator. Estimate your investment and loan returns instantly based on amount, interest rate and duration." />
+          content="Free online SIP, Lumpsum, FD, RD, EMI and Income Tax calculator (India). Estimate investment returns, loan EMIs and income tax instantly based on amount, interest rate and duration." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, loan emi calculator, fixed deposit calculator, recurring deposit calculator, mutual fund calculator, investment calculator, finance tools, sip returns calculator" />
+          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, emi calculator, income tax calculator india, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -26,10 +28,9 @@
 
     <header class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">SIP, Lumpsum, FD, RD & EMI Returns Calculator</h1>
+            <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
             <p class="hero-subtitle">
-                Quickly calculate your investment and loan values using SIP, one-time lumpsum, fixed deposit (FD),
-                recurring deposit (RD) or EMI.
+                Calculate SIP, Lumpsum, FD, RD, EMI and Income Tax in one place.
             </p>
         </div>
     </header>
@@ -176,84 +177,88 @@
             <div id="emiResultBox" class="result-box"></div>
         </section>
 
+        <!-- Income Tax Calculator Card -->
+        <section class="card">
+            <h2 class="card-title">Income Tax Calculator (India)</h2>
+            <p class="card-desc">
+                Estimate your annual income tax under Old or New regime (approximate, for guidance only).
+            </p>
+
+            <div class="field">
+                <label for="taxIncome">Annual Taxable Income (₹)</label>
+                <input type="number" id="taxIncome" placeholder="e.g. 1200000" />
+            </div>
+
+            <div class="field">
+                <label for="taxRegime">Tax Regime</label>
+                <select id="taxRegime">
+                    <option value="new">New Tax Regime</option>
+                    <option value="old">Old Tax Regime</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" onclick="calculateTax()">Calculate Tax</button>
+
+            <div id="taxError" class="error-text"></div>
+            <div id="taxResultBox" class="result-box"></div>
+        </section>
+
     </main>
 
     <!-- SEO Content Section -->
     <section class="seo-section">
         <div class="seo-inner">
 
-            <h2>What is a SIP (Systematic Investment Plan)?</h2>
+            <h2>Investment & Tax Calculators in One Place</h2>
+            <p>
+                This page brings together SIP, Lumpsum, FD, RD, EMI and Income Tax calculators so you can
+                quickly check how your money grows and how much tax you may need to pay (approximate).
+            </p>
+
+            <h2>SIP (Systematic Investment Plan)</h2>
             <p>
                 SIP allows you to invest a fixed amount regularly (usually monthly) in mutual funds.
                 It helps average out your cost and builds wealth over time using the power of compounding.
             </p>
 
-            <h3>How our SIP calculator helps you</h3>
-            <ul>
-                <li>Enter monthly investment amount.</li>
-                <li>Enter expected annual return rate.</li>
-                <li>Enter how many years you plan to invest.</li>
-            </ul>
-            <p>
-                The calculator instantly shows your total invested amount, maturity value and total profit
-                based on the SIP formula with monthly compounding.
-            </p>
-
-            <h2>What is Lumpsum Investment?</h2>
+            <h2>Lumpsum Investment</h2>
             <p>
                 In a lumpsum investment, you invest a one-time amount and let it grow for a number of years
                 at a certain expected return. This is common when you receive a bonus, inheritance or sell an asset.
             </p>
 
-            <h3>When should you choose SIP vs Lumpsum?</h3>
-            <ul>
-                <li>Choose SIP if you have regular monthly income and want disciplined investing.</li>
-                <li>Choose Lumpsum if you have surplus cash ready to invest immediately.</li>
-                <li>Many investors use both: one-time lumpsum + ongoing SIP.</li>
-            </ul>
-
-            <h2>What is an FD (Fixed Deposit)?</h2>
+            <h2>FD & RD</h2>
             <p>
-                A Fixed Deposit is a safe investment where you deposit a lump sum with a bank
-                for a fixed tenure at a fixed interest rate. In India, many FDs compound interest quarterly.
-            </p>
-            <p>
-                Our FD calculator estimates your invested amount, maturity amount and interest earned
-                using quarterly compounding, based on your principal, interest rate and time period.
+                Fixed Deposit (FD) is a safe investment where you deposit a lump sum at a fixed interest rate.
+                Recurring Deposit (RD) is similar to SIP at a bank where you deposit a fixed amount every month.
             </p>
 
-            <h2>What is an RD (Recurring Deposit)?</h2>
-            <p>
-                A Recurring Deposit is similar to SIP in a bank: you deposit a fixed amount every month
-                for a fixed tenure, and earn interest on your growing balance.
-            </p>
-            <p>
-                Our RD calculator helps you see how your monthly deposits grow over time,
-                and how much interest you earn by the end of the RD tenure.
-            </p>
-
-            <h2>What is an EMI (Equated Monthly Instalment)?</h2>
+            <h2>EMI (Equated Monthly Instalment)</h2>
             <p>
                 EMI is the fixed amount you pay every month towards a loan such as a home loan, car loan or personal loan.
-                Each EMI contains both interest and principal repayment.
-            </p>
-            <p>
-                Our EMI calculator shows your monthly EMI, total amount paid over the entire tenure
-                and the total interest you will pay on your loan, based on your loan amount, interest rate and tenure.
+                Each EMI has both interest and principal. Our calculator shows EMI, total amount paid and total interest.
             </p>
 
-            <h3>Important note</h3>
+            <h2>Income Tax Calculator (India)</h2>
             <p>
-                All results shown by these calculators are estimates based on the inputs you provide.
-                Actual returns and EMI values may vary depending on market conditions, bank policies and tax treatment.
-                Always read the fine print and consult your bank or financial advisor for final numbers.
+                The income tax calculator uses simple Indian slabs for Old and New regimes and adds 4% health & education cess.
+                It shows your approximate tax payable, net income after tax and effective tax rate.
+                This tool is for quick estimation and learning purposes only.
+            </p>
+
+            <h3>Important Disclaimer</h3>
+            <p>
+                All calculators on this page provide approximate values based on the inputs you give and simplified formulas.
+                Actual returns, loan EMIs and tax liabilities may differ based on market conditions, bank or fund policies,
+                tax rules, deductions and surcharges. Always verify with official sources or a qualified financial advisor
+                before making final financial decisions.
             </p>
 
         </div>
     </section>
 
     <footer class="footer">
-        <p>© 2025 SIP, Lumpsum, FD, RD & EMI Calculator</p>
+        <p>© 2025 Investment & Tax Calculator (India)</p>
     </footer>
 
     <script src="script.js"></script>
