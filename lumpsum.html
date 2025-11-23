@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lumpsum Calculator (India) – One-Time Investment Returns</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="Free Lumpsum Calculator for India. Enter your one-time investment amount, expected annual return and years to see maturity amount, profit and growth charts." />
+    <meta name="keywords"
+          content="lumpsum calculator india, one time investment calculator, mutual fund lumpsum, lumpsum return calculator" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- HEADER + NAV -->
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">Lumpsum Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    See how a one-time investment can grow over time with compounding.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html" class="active">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<!-- TOP AD -->
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<!-- MAIN CARD: 2x2 GRID (like SIP) -->
+<main class="main-layout">
+    <section class="card sip-card" id="lumpsum">
+        <div class="sip-grid">
+            <!-- TOP-LEFT: Calculator + results -->
+            <div class="sip-main-panel">
+                <h2 class="card-title">Lumpsum Calculator</h2>
+                <p class="card-desc">
+                    Enter your one-time investment amount, expected annual return and investment period in years.
+                    Click “Calculate Lumpsum” to see invested amount, maturity value and profit. The charts show how
+                    your money grows year by year and how much of the final amount is principal vs profit.
+                </p>
+
+                <div class="field">
+                    <label for="lsPrincipal">Lumpsum Amount (₹)</label>
+                    <input type="number" id="lsPrincipal" placeholder="e.g. 500000" />
+                </div>
+
+                <div class="field">
+                    <label for="lsRate">Expected Return (% per year)</label>
+                    <input type="number" id="lsRate" placeholder="e.g. 12" />
+                </div>
+
+                <div class="field">
+                    <label for="lsYears">Time Period (years)</label>
+                    <input type="number" id="lsYears" placeholder="e.g. 10" />
+                </div>
+
+                <button class="primary-btn" onclick="calculateLumpsum()">Calculate Lumpsum</button>
+
+                <div id="lsError" class="error-text"></div>
+                <div id="lsResultBox" class="result-box"></div>
+            </div>
+
+            <!-- TOP-RIGHT: Explanation / info -->
+            <div class="sip-info-panel">
+                <h2 class="card-title">How This Lumpsum Calculator Works</h2>
+                <p class="card-desc">
+                    This calculator assumes a one-time investment that grows at a fixed annual return rate,
+                    compounded yearly. It’s designed for Indian investors to quickly estimate how their money
+                    could grow over time.
+                </p>
+
+                <p style="font-size:0.85rem; color:#4b5563;">
+                    <strong>Formula used (lumpsum growth):</strong><br />
+                    Future Value = Principal × (1 + R)<sup>n</sup><br />
+                    where <strong>R</strong> is the annual return rate (in decimal) and
+                    <strong>n</strong> is the number of years.
+                </p>
+
+                <p style="font-size:0.8rem; color:#6b7280;">
+                    The line chart compares the constant invested amount with the estimated value year by year.
+                    The doughnut chart splits the final corpus into principal and profit so you can clearly see
+                    how much compounding has worked for you.
+                </p>
+
+                <p style="font-size:0.78rem; color:#6b7280;">
+                    This is an approximate model for educational use only. Actual returns depend on the mutual fund
+                    or asset you choose and market conditions. Please verify with official documents or a financial
+                    advisor before investing.
+                </p>
+            </div>
+
+            <!-- BOTTOM-LEFT: Growth chart -->
+            <div id="lumpsumGrowthBox" class="chart-box sip-chart">
+                <h3 class="chart-title">Lumpsum Growth Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="lumpsumGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- BOTTOM-RIGHT: Composition chart -->
+            <div id="lumpsumCompositionBox" class="chart-box sip-chart">
+                <h3 class="chart-title">Invested Amount vs Profit</h3>
+                <div class="chart-container">
+                    <canvas id="lumpsumCompositionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- BOTTOM AD -->
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<!-- SEO TEXT -->
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>Lumpsum Investment Calculator for Indian Investors</h2>
+        <p>
+            A lumpsum investment means you invest a large amount in one shot, instead of making monthly SIP
+            contributions. This calculator helps you understand how that amount can grow with compounding,
+            based on simple assumptions.
+        </p>
+
+        <h3>Inputs</h3>
+        <ul>
+            <li>Investment amount (₹)</li>
+            <li>Expected annual return (%)</li>
+            <li>Investment duration in years</li>
+        </ul>
+
+        <h3>Outputs</h3>
+        <ul>
+            <li>Invested amount</li>
+            <li>Estimated maturity amount</li>
+            <li>Total profit</li>
+            <li>Interactive year-by-year growth chart</li>
+            <li>Invested vs profit composition chart</li>
+        </ul>
+
+        <h3>Disclaimer</h3>
+        <p>
+            All results are approximate and for illustration only. Real returns, taxes and charges may differ
+            based on the actual product and market behaviour. Always check official product documents or talk
+            to a registered financial advisor before making investment decisions.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="lumpsum.js"></script>
+</body>
+</html>

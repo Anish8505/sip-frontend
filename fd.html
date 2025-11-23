@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>FD Calculator (India) – Fixed Deposit Maturity Amount</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="Free FD Calculator for India. Calculate fixed deposit maturity amount and interest earned with interactive charts." />
+    <meta name="keywords"
+          content="fd calculator india, fixed deposit calculator, fd maturity amount, bank fd interest" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">FD Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Calculate fixed deposit maturity amount and total interest earned.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html" class="active">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout">
+    <section class="card sip-card" id="fd">
+        <div class="sip-grid">
+            <!-- TOP-LEFT: Calculator + results -->
+            <div class="sip-main-panel">
+                <h2 class="card-title">FD Calculator</h2>
+                <p class="card-desc">
+                    Enter your fixed deposit amount, annual interest rate and tenure in years.
+                    Click “Calculate FD” to see invested amount, maturity value and total interest earned.
+                </p>
+
+                <div class="field">
+                    <label for="fdPrincipal">FD Amount (₹)</label>
+                    <input type="number" id="fdPrincipal" placeholder="e.g. 500000" />
+                </div>
+
+                <div class="field">
+                    <label for="fdRate">Interest Rate (% per year)</label>
+                    <input type="number" id="fdRate" placeholder="e.g. 7" />
+                </div>
+
+                <div class="field">
+                    <label for="fdYears">Time Period (years)</label>
+                    <input type="number" id="fdYears" placeholder="e.g. 5" />
+                </div>
+
+                <button class="primary-btn" onclick="calculateFd()">Calculate FD</button>
+
+                <div id="fdError" class="error-text"></div>
+                <div id="fdResultBox" class="result-box"></div>
+            </div>
+
+            <!-- TOP-RIGHT: Info / explanation -->
+            <div class="sip-info-panel">
+                <h2 class="card-title">About Fixed Deposit (FD)</h2>
+                <p class="card-desc">
+                    Bank FDs are low-risk instruments that give a fixed return for a fixed tenure.
+                    This calculator assumes yearly compounding to estimate maturity value.
+                </p>
+
+                <p style="font-size:0.85rem; color:#4b5563;">
+                    <strong>Formula used (FD growth):</strong><br />
+                    Maturity Value = Principal × (1 + R)<sup>n</sup><br />
+                    where <strong>R</strong> is annual interest rate (in decimal) and
+                    <strong>n</strong> is number of years.
+                </p>
+
+                <p style="font-size:0.8rem; color:#6b7280;">
+                    The line chart shows how your FD value grows each year compared to your original
+                    principal. The doughnut chart splits the final maturity amount into principal vs
+                    interest earned, so you can clearly see how much extra you earned.
+                </p>
+
+                <p style="font-size:0.78rem; color:#6b7280;">
+                    Bank rules for compounding frequency, tax deducted at source (TDS) and premature
+                    withdrawal penalties may differ. Treat this as an educational estimate only and
+                    confirm exact numbers with your bank.
+                </p>
+            </div>
+
+            <!-- BOTTOM-LEFT: Growth chart -->
+            <div id="fdGrowthBox" class="chart-box sip-chart">
+                <h3 class="chart-title">FD Value Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="fdGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- BOTTOM-RIGHT: Composition chart -->
+            <div id="fdCompositionBox" class="chart-box sip-chart">
+                <h3 class="chart-title">Principal vs Interest</h3>
+                <div class="chart-container">
+                    <canvas id="fdCompositionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>FD Calculator for Indian Bank Deposits</h2>
+        <p>
+            Use this FD calculator to get a quick idea of how much your fixed deposit will be worth at
+            maturity and how much interest you earn over the tenure.
+        </p>
+
+        <h3>Inputs</h3>
+        <ul>
+            <li>FD amount (principal)</li>
+            <li>Annual interest rate</li>
+            <li>Tenure in years</li>
+        </ul>
+
+        <h3>Outputs</h3>
+        <ul>
+            <li>Invested amount (principal)</li>
+            <li>Maturity amount</li>
+            <li>Total interest earned</li>
+            <li>Interactive growth chart (year by year)</li>
+            <li>Principal vs interest composition chart</li>
+        </ul>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="fd.js"></script>
+</body>
+</html>

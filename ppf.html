@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>PPF Calculator (India) – Public Provident Fund Maturity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="PPF Calculator for India. Estimate maturity amount, total investment and interest for yearly PPF contributions, with interactive growth and composition charts." />
+    <meta name="keywords"
+          content="ppf calculator india, public provident fund calculator, ppf maturity, tax saving investment" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">PPF Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Estimate Public Provident Fund maturity with yearly investments.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html" class="active">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout">
+    <section class="card sip-card" id="ppf">
+        <div class="sip-grid">
+            <!-- TOP-LEFT: Calculator + results -->
+            <div class="sip-main-panel">
+                <h2 class="card-title">PPF Calculator (Yearly Investment)</h2>
+                <p class="card-desc">
+                    Enter your yearly PPF contribution, interest rate and time period (commonly 15 years).
+                    Click “Calculate PPF” to see total investment, maturity amount and interest earned.
+                </p>
+
+                <div class="field">
+                    <label for="ppfYearly">Yearly Investment (₹)</label>
+                    <input type="number" id="ppfYearly" placeholder="e.g. 150000" />
+                </div>
+
+                <div class="field">
+                    <label for="ppfRate">PPF Interest Rate (% per year)</label>
+                    <input type="number" id="ppfRate" placeholder="e.g. 7.1" />
+                </div>
+
+                <div class="field">
+                    <label for="ppfYears">Time Period (years)</label>
+                    <input type="number" id="ppfYears" placeholder="e.g. 15" />
+                </div>
+
+                <button class="primary-btn" onclick="calculatePpf()">Calculate PPF</button>
+
+                <div id="ppfError" class="error-text"></div>
+                <div id="ppfResultBox" class="result-box"></div>
+            </div>
+
+            <!-- TOP-RIGHT: Explanation / info -->
+            <div class="sip-info-panel">
+                <h2 class="card-title">How This PPF Calculator Works</h2>
+                <p class="card-desc">
+                    Public Provident Fund (PPF) is a long-term, tax-efficient scheme backed by the Government
+                    of India. You can invest up to a maximum limit each financial year. This calculator
+                    assumes a fixed yearly contribution and a constant interest rate compounded annually.
+                </p>
+
+                <p style="font-size:0.85rem; color:#4b5563;">
+                    <strong>Approximate method used:</strong><br />
+                    The balance at the end of each year is:<br />
+                    <code>Balance<sub>year</sub> = (Previous&nbsp;Balance + Yearly&nbsp;Contribution) × (1 + r)</code><br />
+                    where <strong>r</strong> is the annual PPF interest rate (in decimal).
+                </p>
+
+                <p style="font-size:0.8rem; color:#6b7280;">
+                    The growth chart compares how much you have actually invested vs the estimated account
+                    balance over the years. The doughnut chart at the bottom shows how much of the final
+                    maturity amount is your own contribution vs interest earned.
+                </p>
+
+                <p style="font-size:0.78rem; color:#6b7280;">
+                    PPF rules (lock-in period, extension, partial withdrawal, loan facility, interest
+                    revisions) are defined by the Government of India and may change over time. Use this
+                    only as a planning tool and check official PPF rules or consult a financial advisor
+                    before investing.
+                </p>
+            </div>
+
+            <!-- BOTTOM-LEFT: Growth chart -->
+            <div id="ppfGrowthBox" class="chart-box sip-chart">
+                <h3 class="chart-title">PPF Growth Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="ppfGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- BOTTOM-RIGHT: Composition chart -->
+            <div id="ppfCompositionBox" class="chart-box sip-chart">
+                <h3 class="chart-title">Total Investment vs Interest</h3>
+                <div class="chart-container">
+                    <canvas id="ppfCompositionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>PPF Calculator – Tax-Saving Long-Term Investment</h2>
+        <p>
+            Use this PPF calculator to plan your yearly contributions and estimate the maturity value of your
+            Public Provident Fund account. It helps you visualise how your money grows with compounding and
+            how much of the final corpus is interest.
+        </p>
+
+        <h3>Inputs</h3>
+        <ul>
+            <li>Yearly PPF investment (₹)</li>
+            <li>PPF interest rate (% per year)</li>
+            <li>Number of years (commonly 15 years)</li>
+        </ul>
+
+        <h3>Outputs</h3>
+        <ul>
+            <li>Total amount invested over the chosen period</li>
+            <li>Estimated maturity amount</li>
+            <li>Total interest earned</li>
+            <li>Year-wise PPF growth chart</li>
+            <li>Investment vs interest composition chart</li>
+        </ul>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="ppf.js"></script>
+</body>
+</html>

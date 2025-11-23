@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>
-        SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement, NPS & SWP Calculator (India)
+        Investment & Tax Calculators (India) – SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement, NPS & SWP
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Basic SEO -->
     <meta name="description"
-          content="Free online SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax (India), CAGR, Retirement, NPS and SWP calculators. Estimate investment returns, EMIs, tax, retirement corpus and withdrawals instantly." />
+          content="All Indian investment & tax calculators in one place – SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS and SWP calculators with clear explanations." />
     <meta name="keywords"
-          content="sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator india, cagr calculator, retirement calculator, nps calculator, swp calculator, loan calculator, fixed deposit, recurring deposit, investment calculator, finance tools" />
+          content="investment calculator india, sip calculator, lumpsum calculator, fd calculator, rd calculator, ppf calculator, emi calculator, income tax calculator, cagr calculator, retirement calculator, nps calculator, swp calculator" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
@@ -26,418 +26,162 @@
 </head>
 <body>
 
-    <!-- HEADER + NAVBAR -->
-    <header class="hero">
-        <div class="hero-inner">
-            <div class="brand-row">
-                <div class="brand-logo">₹</div>
-                <div class="brand-text">
-                    <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
-                    <p class="hero-subtitle">
-                        SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS & SWP – all in one place.
-                    </p>
-                </div>
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">Investment & Tax Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Choose a calculator: SIP, Lumpsum, FD, RD, PPF, EMI, Tax, CAGR, Retirement, NPS or SWP.
+                </p>
             </div>
-
-            <nav class="main-nav">
-                <a href="#top">Home</a>
-                <a href="#sip">SIP</a>
-                <a href="#lumpsum">Lumpsum</a>
-                <a href="#fd">FD</a>
-                <a href="#rd">RD</a>
-                <a href="#ppf">PPF</a>
-                <a href="#emi">EMI</a>
-                <a href="#tax">Tax</a>
-                <a href="#cagr">CAGR</a>
-                <a href="#retirement">Retirement</a>
-                <a href="#nps">NPS</a>
-                <a href="#swp">SWP</a>
-            </nav>
         </div>
-    </header>
 
-    <!-- 🔸 TOP AD SLOT (replace with AdSense code later) -->
-    <div class="ad-slot ad-top">
-        <div class="ad-label">Ad space</div>
-        <!-- When AdSense is approved, replace this div with your ad code -->
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
     </div>
-
-    <main class="main-layout" id="top">
-
-        <!-- SIP Calculator Card -->
-        <section class="card" id="sip">
-            <h2 class="card-title">SIP Calculator</h2>
-            <p class="card-desc">
-                Estimate the future value of your monthly SIP contributions in mutual funds.
-            </p>
-
-            <div class="field">
-                <label for="monthly">Monthly Investment (₹)</label>
-                <input type="number" id="monthly" placeholder="e.g. 5000" />
-            </div>
-
-            <div class="field">
-                <label for="rate">Expected Return (% per year)</label>
-                <input type="number" id="rate" placeholder="e.g. 12" />
-            </div>
-
-            <div class="field">
-                <label for="years">Time Period (years)</label>
-                <input type="number" id="years" placeholder="e.g. 10" />
-            </div>
-
-            <button class="primary-btn" onclick="calculate()">Calculate SIP</button>
-
-            <div id="error" class="error-text"></div>
-            <div id="resultBox" class="result-box"></div>
-        </section>
-
-        <!-- Lumpsum Calculator Card -->
-        <section class="card" id="lumpsum">
-            <h2 class="card-title">Lumpsum Calculator</h2>
-            <p class="card-desc">
-                Calculate how much your one-time investment will grow in the future.
-            </p>
-
-            <div class="field">
-                <label for="lsPrincipal">Lumpsum Amount (₹)</label>
-                <input type="number" id="lsPrincipal" placeholder="e.g. 500000" />
-            </div>
-
-            <div class="field">
-                <label for="lsRate">Expected Return (% per year)</label>
-                <input type="number" id="lsRate" placeholder="e.g. 12" />
-            </div>
-
-            <div class="field">
-                <label for="lsYears">Time Period (years)</label>
-                <input type="number" id="lsYears" placeholder="e.g. 10" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateLumpsum()">Calculate Lumpsum</button>
-
-            <div id="lsError" class="error-text"></div>
-            <div id="lsResultBox" class="result-box"></div>
-        </section>
-
-        <!-- FD Calculator Card -->
-        <section class="card" id="fd">
-            <h2 class="card-title">FD Calculator</h2>
-            <p class="card-desc">
-                Calculate the maturity value of your fixed deposit with quarterly compounding.
-            </p>
-
-            <div class="field">
-                <label for="fdPrincipal">FD Amount (₹)</label>
-                <input type="number" id="fdPrincipal" placeholder="e.g. 500000" />
-            </div>
-
-            <div class="field">
-                <label for="fdRate">Interest Rate (% per year)</label>
-                <input type="number" id="fdRate" placeholder="e.g. 7" />
-            </div>
-
-            <div class="field">
-                <label for="fdYears">Time Period (years)</label>
-                <input type="number" id="fdYears" placeholder="e.g. 5" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateFd()">Calculate FD</button>
-
-            <div id="fdError" class="error-text"></div>
-            <div id="fdResultBox" class="result-box"></div>
-        </section>
-
-        <!-- RD Calculator Card -->
-        <section class="card" id="rd">
-            <h2 class="card-title">RD Calculator</h2>
-            <p class="card-desc">
-                Estimate the maturity value of your recurring deposit (monthly contributions).
-            </p>
-
-            <div class="field">
-                <label for="rdMonthly">Monthly Deposit (₹)</label>
-                <input type="number" id="rdMonthly" placeholder="e.g. 5000" />
-            </div>
-
-            <div class="field">
-                <label for="rdRate">Interest Rate (% per year)</label>
-                <input type="number" id="rdRate" placeholder="e.g. 7" />
-            </div>
-
-            <div class="field">
-                <label for="rdYears">Time Period (years)</label>
-                <input type="number" id="rdYears" placeholder="e.g. 5" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateRd()">Calculate RD</button>
-
-            <div id="rdError" class="error-text"></div>
-            <div id="rdResultBox" class="result-box"></div>
-        </section>
-
-        <!-- PPF Calculator Card -->
-        <section class="card" id="ppf">
-            <h2 class="card-title">PPF Calculator (Yearly Investment)</h2>
-            <p class="card-desc">
-                Estimate your PPF maturity by investing a fixed amount every year for a chosen tenure.
-            </p>
-
-            <div class="field">
-                <label for="ppfYearly">Yearly Investment (₹)</label>
-                <input type="number" id="ppfYearly" placeholder="e.g. 150000" />
-            </div>
-
-            <div class="field">
-                <label for="ppfRate">PPF Interest Rate (% per year)</label>
-                <input type="number" id="ppfRate" placeholder="e.g. 7.1" />
-            </div>
-
-            <div class="field">
-                <label for="ppfYears">Time Period (years)</label>
-                <input type="number" id="ppfYears" placeholder="e.g. 15" />
-            </div>
-
-            <button class="primary-btn" onclick="calculatePpf()">Calculate PPF</button>
-
-            <div id="ppfError" class="error-text"></div>
-            <div id="ppfResultBox" class="result-box"></div>
-        </section>
-
-        <!-- EMI Calculator Card -->
-        <section class="card" id="emi">
-            <h2 class="card-title">EMI Calculator</h2>
-            <p class="card-desc">
-                Calculate your monthly EMI, total payment and total interest for a loan.
-            </p>
-
-            <div class="field">
-                <label for="emiPrincipal">Loan Amount (₹)</label>
-                <input type="number" id="emiPrincipal" placeholder="e.g. 1000000" />
-            </div>
-
-            <div class="field">
-                <label for="emiRate">Interest Rate (% per year)</label>
-                <input type="number" id="emiRate" placeholder="e.g. 10" />
-            </div>
-
-            <div class="field">
-                <label for="emiYears">Loan Tenure (years)</label>
-                <input type="number" id="emiYears" placeholder="e.g. 10" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateEmi()">Calculate EMI</button>
-
-            <div id="emiError" class="error-text"></div>
-            <div id="emiResultBox" class="result-box"></div>
-        </section>
-
-        <!-- 🔸 MIDDLE AD SLOT (between calculators) -->
-        <section class="ad-slot ad-middle">
-            <div class="ad-label">Ad space</div>
-            <!-- Replace this with in-article / display ad code later -->
-        </section>
-
-        <!-- Income Tax Calculator Card -->
-        <section class="card" id="tax">
-            <h2 class="card-title">Income Tax Calculator (India)</h2>
-            <p class="card-desc">
-                Estimate your annual income tax under Old or New regime (approximate, for guidance only).
-            </p>
-
-            <div class="field">
-                <label for="taxIncome">Annual Taxable Income (₹)</label>
-                <input type="number" id="taxIncome" placeholder="e.g. 1200000" />
-            </div>
-
-            <div class="field">
-                <label for="taxRegime">Tax Regime</label>
-                <select id="taxRegime">
-                    <option value="new">New Tax Regime</option>
-                    <option value="old">Old Tax Regime</option>
-                </select>
-            </div>
-
-            <button class="primary-btn" onclick="calculateTax()">Calculate Tax</button>
-
-            <div id="taxError" class="error-text"></div>
-            <div id="taxResultBox" class="result-box"></div>
-        </section>
-
-        <!-- CAGR Calculator Card -->
-        <section class="card" id="cagr">
-            <h2 class="card-title">CAGR Calculator</h2>
-            <p class="card-desc">
-                Find the compound annual growth rate of an investment between a starting and ending value.
-            </p>
-
-            <div class="field">
-                <label for="cagrInitial">Initial Value (₹)</label>
-                <input type="number" id="cagrInitial" placeholder="e.g. 100000" />
-            </div>
-
-            <div class="field">
-                <label for="cagrFinal">Final Value (₹)</label>
-                <input type="number" id="cagrFinal" placeholder="e.g. 250000" />
-            </div>
-
-            <div class="field">
-                <label for="cagrYears">Time Period (years)</label>
-                <input type="number" id="cagrYears" placeholder="e.g. 5" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateCagr()">Calculate CAGR</button>
-
-            <div id="cagrError" class="error-text"></div>
-            <div id="cagrResultBox" class="result-box"></div>
-        </section>
-
-        <!-- Retirement Calculator Card -->
-        <section class="card" id="retirement">
-            <h2 class="card-title">Retirement Corpus Calculator</h2>
-            <p class="card-desc">
-                Estimate how much retirement corpus you may need based on current monthly expenses and inflation.
-            </p>
-
-            <div class="field">
-                <label for="retExpense">Monthly Expense Today (₹)</label>
-                <input type="number" id="retExpense" placeholder="e.g. 30000" />
-            </div>
-
-            <div class="field">
-                <label for="retInflation">Expected Inflation Rate (% per year)</label>
-                <input type="number" id="retInflation" placeholder="e.g. 6" />
-            </div>
-
-            <div class="field">
-                <label for="retYears">Years Until Retirement</label>
-                <input type="number" id="retYears" placeholder="e.g. 25" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateRetirement()">Calculate Retirement Corpus</button>
-
-            <div id="retError" class="error-text"></div>
-            <div id="retResultBox" class="result-box"></div>
-        </section>
-
-        <!-- NPS Calculator Card -->
-        <section class="card" id="nps">
-            <h2 class="card-title">NPS Calculator</h2>
-            <p class="card-desc">
-                Estimate NPS maturity by investing a fixed monthly contribution until retirement.
-            </p>
-
-            <div class="field">
-                <label for="npsMonthly">Monthly NPS Contribution (₹)</label>
-                <input type="number" id="npsMonthly" placeholder="e.g. 5000" />
-            </div>
-
-            <div class="field">
-                <label for="npsRate">Expected Return (% per year)</label>
-                <input type="number" id="npsRate" placeholder="e.g. 10" />
-            </div>
-
-            <div class="field">
-                <label for="npsYears">Years to Retirement</label>
-                <input type="number" id="npsYears" placeholder="e.g. 25" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateNps()">Calculate NPS</button>
-
-            <div id="npsError" class="error-text"></div>
-            <div id="npsResultBox" class="result-box"></div>
-        </section>
-
-        <!-- SWP Calculator Card -->
-        <section class="card" id="swp">
-            <h2 class="card-title">SWP Calculator</h2>
-            <p class="card-desc">
-                Check how long your corpus can last if you withdraw a fixed amount every month (Systematic Withdrawal Plan).
-            </p>
-
-            <div class="field">
-                <label for="swpCorpus">Starting Corpus (₹)</label>
-                <input type="number" id="swpCorpus" placeholder="e.g. 3000000" />
-            </div>
-
-            <div class="field">
-                <label for="swpRate">Expected Return (% per year)</label>
-                <input type="number" id="swpRate" placeholder="e.g. 8" />
-            </div>
-
-            <div class="field">
-                <label for="swpMonthly">Monthly Withdrawal (₹)</label>
-                <input type="number" id="swpMonthly" placeholder="e.g. 25000" />
-            </div>
-
-            <button class="primary-btn" onclick="calculateSwp()">Calculate SWP</button>
-
-            <div id="swpError" class="error-text"></div>
-            <div id="swpResultBox" class="result-box"></div>
-        </section>
-
-    </main>
-
-    <!-- 🔸 BOTTOM AD SLOT ABOVE SEO SECTION -->
-    <div class="ad-slot ad-bottom">
-        <div class="ad-label">Ad space</div>
-        <!-- Good place for a wide responsive ad -->
-    </div>
-
-    <!-- SEO Content Section -->
-    <section class="seo-section">
-        <div class="seo-inner">
-
-            <h2>Investment, Tax & Retirement Calculators in One Place</h2>
-            <p>
-                This page brings together SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR, Retirement, NPS and SWP calculators so you can
-                quickly check how your money grows, what EMI you will pay, how much tax you may owe, how your retirement corpus might look
-                and how long withdrawals can last.
-            </p>
-
-            <h2>SIP & Lumpsum</h2>
-            <p>
-                SIP allows you to invest a fixed amount regularly in mutual funds, while lumpsum is a one-time investment.
-                Both rely on compounding returns over time to grow your wealth.
-            </p>
-
-            <h2>FD, RD, PPF & NPS</h2>
-            <p>
-                Fixed Deposit (FD) is a safe investment at a fixed interest rate. Recurring Deposit (RD) lets you invest monthly at a bank.
-                Public Provident Fund (PPF) is a tax-efficient, government-backed long-term scheme. National Pension System (NPS) is a
-                retirement-focused product where you invest regularly for the long term and receive a mix of lump sum and pension at retirement.
-            </p>
-
-            <h2>EMI & Income Tax</h2>
-            <p>
-                EMI is the fixed amount you pay each month towards a home loan, car loan or personal loan.
-                The income tax calculator uses simple Indian slabs for Old and New regimes plus 4% health & education cess
-                to estimate your tax, net income after tax and effective tax rate.
-            </p>
-
-            <h2>CAGR, Retirement Corpus, NPS & SWP</h2>
-            <p>
-                CAGR shows your average annual growth rate between a starting and ending value. Retirement calculators help
-                you estimate how much corpus you may need based on inflation and expenses. NPS calculators estimate how much
-                your monthly retirement contributions can grow to. SWP calculators help you understand how long your corpus
-                can last if you withdraw a fixed amount every month after retirement.
-            </p>
-
-            <h3>Important Disclaimer</h3>
-            <p>
-                All calculators on this page provide approximate values based on the inputs you provide and simplified formulas.
-                Actual returns, loan EMIs, tax liabilities, retirement needs and withdrawal durations may differ based on market conditions,
-                bank or fund policies, tax rules, deductions, surcharges and your actual lifestyle. Always verify with official sources
-                or a qualified financial advisor before making final financial decisions.
-            </p>
-
-        </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout">
+    <!-- One card per calculator linking to its own page -->
+    <section class="card">
+        <h2 class="card-title">SIP Calculator</h2>
+        <p class="card-desc">
+            Calculate the future value of your monthly SIP investments in mutual funds.
+        </p>
+        <a class="primary-btn primary-btn-link" href="sip.html">Open SIP Calculator</a>
     </section>
 
-    <footer class="footer">
-        <p>© 2025 Investment & Tax Calculator (India)</p>
-    </footer>
+    <section class="card">
+        <h2 class="card-title">Lumpsum Calculator</h2>
+        <p class="card-desc">
+            See how much a one-time investment can grow over time.
+        </p>
+        <a class="primary-btn primary-btn-link" href="lumpsum.html">Open Lumpsum Calculator</a>
+    </section>
 
-    <script src="script.js"></script>
+    <section class="card">
+        <h2 class="card-title">FD Calculator</h2>
+        <p class="card-desc">
+            Get the maturity value of your fixed deposits (FDs).
+        </p>
+        <a class="primary-btn primary-btn-link" href="fd.html">Open FD Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">RD Calculator</h2>
+        <p class="card-desc">
+            Estimate the value of your monthly recurring deposits (RDs).
+        </p>
+        <a class="primary-btn primary-btn-link" href="rd.html">Open RD Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">PPF Calculator</h2>
+        <p class="card-desc">
+            Approximate the maturity amount of your Public Provident Fund (PPF).
+        </p>
+        <a class="primary-btn primary-btn-link" href="ppf.html">Open PPF Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">EMI Calculator</h2>
+        <p class="card-desc">
+            Calculate home, car or personal loan EMIs and interest.
+        </p>
+        <a class="primary-btn primary-btn-link" href="emi.html">Open EMI Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">Income Tax Calculator (India)</h2>
+        <p class="card-desc">
+            Check approximate income tax under New and Old regimes.
+        </p>
+        <a class="primary-btn primary-btn-link" href="tax.html">Open Tax Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">CAGR Calculator</h2>
+        <p class="card-desc">
+            Find the compound annual growth rate between two values.
+        </p>
+        <a class="primary-btn primary-btn-link" href="cagr.html">Open CAGR Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">Retirement Corpus Calculator</h2>
+        <p class="card-desc">
+            Estimate how much corpus you may need at retirement.
+        </p>
+        <a class="primary-btn primary-btn-link" href="retirement.html">Open Retirement Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">NPS Calculator</h2>
+        <p class="card-desc">
+            Check how your monthly NPS contributions can grow.
+        </p>
+        <a class="primary-btn primary-btn-link" href="nps.html">Open NPS Calculator</a>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">SWP Calculator</h2>
+        <p class="card-desc">
+            See how long your corpus lasts with monthly withdrawals (SWP).
+        </p>
+        <a class="primary-btn primary-btn-link" href="swp.html">Open SWP Calculator</a>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>All Indian Investment & Tax Calculators in One Place</h2>
+        <p>
+            This website provides separate, detailed pages for SIP, Lumpsum, FD, RD, PPF, EMI, Income Tax, CAGR,
+            Retirement, NPS and SWP calculators. Each calculator has its own explanation, formula and graph so you
+            can clearly understand how your money grows, how loans work and how much tax you may pay.
+        </p>
+
+        <h3>How to Use This Site</h3>
+        <p>
+            Choose a calculator from the cards above or the navigation bar. On each calculator page you can enter your
+            numbers, see the results and view an interactive chart of growth or breakdown. These tools are built for
+            Indian investors and salaried professionals.
+        </p>
+
+        <h3>Disclaimer</h3>
+        <p>
+            All calculators give approximate values only. Real returns, EMIs and tax liabilities depend on bank or fund
+            rules, tax law changes and your personal situation. Please verify with official sources or a financial
+            advisor before taking final decisions.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
 </body>
 </html>

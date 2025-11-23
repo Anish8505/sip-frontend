@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Retirement Corpus Calculator (India)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="Retirement Corpus Calculator for India. Estimate future monthly expenses at retirement and the corpus needed, with a simple comparison chart." />
+    <meta name="keywords"
+          content="retirement calculator india, retirement corpus, financial independence calculator" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">Retirement Corpus Calculator</h1>
+                <p class="hero-subtitle">
+                    Estimate how much corpus you may need at retirement based on expenses and inflation.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html" class="active">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout">
+    <!-- LEFT CARD: Calculator + results + chart -->
+    <section class="card" id="retirement">
+        <h2 class="card-title">Retirement Corpus Calculator</h2>
+        <p class="card-desc">
+            Enter your current monthly expenses, expected inflation and years to retirement.
+        </p>
+
+        <div class="field">
+            <label for="retExpense">Monthly Expense Today (₹)</label>
+            <input type="number" id="retExpense" placeholder="e.g. 30000" />
+        </div>
+
+        <div class="field">
+            <label for="retInflation">Expected Inflation Rate (% per year)</label>
+            <input type="number" id="retInflation" placeholder="e.g. 6" />
+        </div>
+
+        <div class="field">
+            <label for="retYears">Years Until Retirement</label>
+            <input type="number" id="retYears" placeholder="e.g. 25" />
+        </div>
+
+        <button class="primary-btn" onclick="calculateRetirement()">Calculate Retirement Corpus</button>
+
+        <div id="retError" class="error-text"></div>
+        <div id="retResultBox" class="result-box"></div>
+
+        <div id="retChartBox" class="chart-box">
+            <h3 class="chart-title">Yearly Expense vs Required Corpus</h3>
+            <div class="chart-container">
+                <canvas id="retChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- RIGHT CARD: assumptions / info -->
+    <section class="card">
+        <h2 class="card-title">Assumptions</h2>
+        <p class="card-desc">
+            This calculator uses simple inflation and a 4% safe withdrawal rule
+            (corpus ≈ 25 × yearly expenses) to estimate how much money you may
+            need at retirement.
+        </p>
+        <p style="font-size:0.85rem;color:#4b5563;">
+            <strong>Steps used:</strong><br/>
+            1. Inflate your current monthly expense till retirement using the inflation rate.<br/>
+            2. Convert that to yearly expense at retirement.<br/>
+            3. Multiply yearly expense by 25 to estimate corpus under a 4% withdrawal rule.
+        </p>
+        <p style="font-size:0.8rem;color:#6b7280;">
+            This is a rough rule-of-thumb. Actual needs depend on lifestyle, returns,
+            other income (like pension) and how long you expect to be retired.
+        </p>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>Retirement Corpus Calculator for Indian Investors</h2>
+        <p>
+            This retirement calculator gives you a quick estimate of how much money you may need
+            at retirement to maintain your current lifestyle, after adjusting for inflation.
+        </p>
+        <p>
+            It works best as a starting point for planning. Combine it with SIP or lumpsum
+            calculators on this site to see how much you should invest today to reach that
+            target corpus.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="retirement.js"></script>
+</body>
+</html>

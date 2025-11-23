@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>EMI Calculator (India) – Loan EMI, Interest & Total Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="EMI Calculator for India. Calculate monthly EMI, total interest and total payment for home, car or personal loans with interactive charts." />
+    <meta name="keywords"
+          content="emi calculator india, loan emi calculator, home loan emi, car loan emi" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">EMI Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Calculate monthly EMI, total interest and total payment for your loan.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html" class="active">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout single">
+    <section class="card card-narrow" id="emi">
+
+        <div class="card-grid">
+
+            <!-- LEFT: EMI FORM -->
+            <div class="card-grid__left">
+                <h2 class="card-title">EMI Calculator</h2>
+                <p class="card-desc">
+                    Enter your loan amount, interest rate and tenure.
+                </p>
+
+                <div class="field">
+                    <label for="emiPrincipal">Loan Amount (₹)</label>
+                    <input type="number" id="emiPrincipal" placeholder="e.g. 1000000" />
+                </div>
+
+                <div class="field">
+                    <label for="emiRate">Interest Rate (% per year)</label>
+                    <input type="number" id="emiRate" placeholder="e.g. 10" />
+                </div>
+
+                <div class="field">
+                    <label for="emiYears">Loan Tenure (years)</label>
+                    <input type="number" id="emiYears" placeholder="e.g. 10" />
+                </div>
+
+                <button class="primary-btn" onclick="calculateEmi()">Calculate EMI</button>
+
+                <div id="emiError" class="error-text"></div>
+                <div id="emiResultBox" class="result-box"></div>
+            </div>
+
+            <!-- RIGHT: INFO -->
+            <div class="card-grid__right">
+                <h2 class="card-title">How EMI Works</h2>
+                <p class="card-desc">
+                    EMI (Equated Monthly Instalment) includes principal + interest.
+                </p>
+                <ul>
+                    <li><strong>Principal</strong> – part of your loan amount</li>
+                    <li><strong>Interest</strong> – bank charges for lending you money</li>
+                </ul>
+                <p style="font-size:0.85rem;">
+                    In the beginning of the loan, interest is higher. Over time, principal portion increases.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- TWO CHARTS -->
+        <div class="chart-row">
+
+            <div id="emiCompositionBox" class="chart-box">
+                <h3 class="chart-title">Principal vs Total Interest</h3>
+                <div class="chart-container">
+                    <canvas id="emiCompositionChart"></canvas>
+                </div>
+            </div>
+
+            <div id="emiBalanceBox" class="chart-box">
+                <h3 class="chart-title">Loan Balance Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="emiBalanceChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>Loan EMI Calculator for India</h2>
+        <p>
+            Estimate EMI, interest & outstanding balance easily.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="emi.js"></script>
+</body>
+</html>

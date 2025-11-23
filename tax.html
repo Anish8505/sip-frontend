@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Income Tax Calculator (India) – Old vs New Regime</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Basic SEO -->
+    <meta name="description"
+          content="Income Tax Calculator for India. Estimate tax payable under New or Old tax regime with cess, and see net income with a simple chart." />
+    <meta name="keywords"
+          content="income tax calculator india, new tax regime, old tax regime, salary tax calculator, tax calculator 2025" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">Income Tax Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Estimate your annual income tax under Old or New regime (approximate, for guidance only).
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html" class="active">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<!-- Use the same single-card centred layout as SIP/EMI -->
+<main class="main-layout single">
+    <section class="card card-narrow" id="tax">
+
+        <!-- Top: calculator (left) + info (right) -->
+        <div class="card-grid">
+
+            <!-- LEFT: Calculator -->
+            <div class="card-grid__left">
+                <h2 class="card-title">Income Tax Calculator</h2>
+                <p class="card-desc">
+                    Enter your annual taxable income and select regime to see approximate tax, net income and effective tax rate.
+                </p>
+
+                <div class="field">
+                    <label for="taxIncome">Annual Taxable Income (₹)</label>
+                    <input type="number" id="taxIncome" placeholder="e.g. 1200000" />
+                </div>
+
+                <div class="field">
+                    <label for="taxRegime">Tax Regime</label>
+                    <select id="taxRegime">
+                        <option value="new">New Tax Regime</option>
+                        <option value="old">Old Tax Regime</option>
+                    </select>
+                </div>
+
+                <button class="primary-btn" onclick="calculateTax()">Calculate Tax</button>
+
+                <div id="taxError" class="error-text"></div>
+                <div id="taxResultBox" class="result-box"></div>
+            </div>
+
+            <!-- RIGHT: Info like SIP/EMI -->
+            <div class="card-grid__right">
+                <h2 class="card-title">About This Tax Calculator</h2>
+                <p class="card-desc">
+                    This tool uses simple slabs for Old and New tax regimes plus 4% health &amp; education cess
+                    based on your input income. It is for quick illustration and planning only.
+                </p>
+                <p style="font-size:0.8rem;color:#6b7280;">
+                    Actual tax liability may change based on deductions, exemptions, surcharges, rebates and latest rules.
+                    Always cross-check with the official Income Tax portal or a Chartered Accountant before filing.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Bottom: chart row (currently one chart, but layout supports adding more later) -->
+        <div class="chart-row">
+            <div id="taxChartBox" class="chart-box">
+                <h3 class="chart-title">Income vs Tax vs Net</h3>
+                <div class="chart-container">
+                    <canvas id="taxChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>Income Tax Calculator for Salaried Indians</h2>
+        <p>
+            With this income tax calculator you can quickly estimate how much tax you may pay in a year under the Old or New tax regime.
+            It also shows your net take-home income after tax and the effective tax rate in percentage.
+        </p>
+        <p>
+            This is particularly useful for comparing salary offers, planning investments and understanding the impact
+            of switching between regimes.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="tax.js"></script>
+</body>
+</html>

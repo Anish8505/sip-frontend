@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>NPS Calculator (India) – National Pension System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="NPS Calculator for India. Estimate maturity amount, total investment and gain for monthly NPS contributions, with a growth chart." />
+    <meta name="keywords"
+          content="nps calculator india, national pension system calculator, retirement nps" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">NPS Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Estimate NPS maturity by investing a fixed monthly contribution until retirement.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top"><div class="ad-label">Ad space</div></div>
+
+<main class="main-layout">
+    <section class="card" id="nps">
+        <h2 class="card-title">NPS Calculator</h2>
+        <p class="card-desc">
+            Enter monthly NPS contribution, expected return and years to retirement.
+        </p>
+
+        <div class="field">
+            <label for="npsMonthly">Monthly NPS Contribution (₹)</label>
+            <input type="number" id="npsMonthly" placeholder="e.g. 5000" />
+        </div>
+
+        <div class="field">
+            <label for="npsRate">Expected Return (% per year)</label>
+            <input type="number" id="npsRate" placeholder="e.g. 10" />
+        </div>
+
+        <div class="field">
+            <label for="npsYears">Years to Retirement</label>
+            <input type="number" id="npsYears" placeholder="e.g. 25" />
+        </div>
+
+        <button class="primary-btn" onclick="calculateNps()">Calculate NPS</button>
+
+        <div id="npsError" class="error-text"></div>
+        <div id="npsResultBox" class="result-box"></div>
+
+        <div id="npsChartBox" class="chart-box">
+            <h3 class="chart-title">NPS Corpus Growth</h3>
+            <div class="chart-container">
+                <canvas id="npsChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2 class="card-title">About NPS</h2>
+        <p class="card-desc">
+            National Pension System is a long-term retirement product.
+            This calculator gives a rough idea of how your monthly contributions can grow.
+        </p>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom"><div class="ad-label">Ad space</div></div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>NPS Maturity Calculator</h2>
+        <p>
+            Use this NPS calculator to plan your retirement contributions and estimate the final corpus
+            that may be split between lump sum and annuity as per NPS rules.
+        </p>
+    </div>
+</section>
+
+<footer class="footer"><p>© 2025 Investment & Tax Calculator (India)</p></footer>
+
+<script src="nps.js"></script>
+</body>
+</html>

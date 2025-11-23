@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>SIP Calculator (India) – Monthly SIP Returns</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Basic SEO -->
+    <meta name="description"
+          content="Free SIP Calculator for India. Estimate SIP maturity, total invested amount and profit with interactive growth and composition charts." />
+    <meta name="keywords"
+          content="sip calculator, sip calculator india, mutual fund sip calculator, monthly sip returns" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- HEADER + NAVBAR -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="brand-row">
+                <div class="brand-logo">₹</div>
+                <div class="brand-text">
+                    <h1 class="hero-title">SIP Calculator (India)</h1>
+                    <p class="hero-subtitle">
+                        Calculate SIP maturity, total invested amount and profit with interactive graphs.
+                    </p>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="sip.html" class="active">SIP</a>
+                <a href="lumpsum.html">Lumpsum</a>
+                <a href="fd.html">FD</a>
+                <a href="rd.html">RD</a>
+                <a href="ppf.html">PPF</a>
+                <a href="emi.html">EMI</a>
+                <a href="tax.html">Tax</a>
+                <a href="cagr.html">CAGR</a>
+                <a href="retirement.html">Retirement</a>
+                <a href="nps.html">NPS</a>
+                <a href="swp.html">SWP</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- TOP AD SLOT -->
+    <div class="ad-slot ad-top">
+        <div class="ad-label">Ad space</div>
+    </div>
+
+    <!-- MAIN CONTENT: single centered card with 2x2 grid inside -->
+    <main class="main-layout single">
+        <section class="card card-narrow sip-card">
+            <div class="sip-grid">
+                <!-- 🔹 TOP-LEFT: Calculator + results -->
+                <div class="sip-main-panel">
+                    <h2 class="card-title">SIP Calculator</h2>
+                    <p class="card-desc">
+                        Enter your monthly SIP amount, expected annual return and investment period in years.
+                        Click “Calculate SIP” to see invested amount, maturity value and profit.
+                    </p>
+
+                    <div class="field">
+                        <label for="monthly">Monthly SIP Investment (₹)</label>
+                        <input type="number" id="monthly" placeholder="e.g. 5000" />
+                    </div>
+
+                    <div class="field">
+                        <label for="rate">Expected Return (% per year)</label>
+                        <input type="number" id="rate" placeholder="e.g. 12" />
+                    </div>
+
+                    <div class="field">
+                        <label for="years">Time Period (years)</label>
+                        <input type="number" id="years" placeholder="e.g. 10" />
+                    </div>
+
+                    <button class="primary-btn" onclick="calculateSip()">Calculate SIP</button>
+
+                    <div id="error" class="error-text"></div>
+                    <div id="resultBox" class="result-box"></div>
+                </div>
+
+                <!-- 🔹 TOP-RIGHT: Info / explanation (fixed, never stretched by charts) -->
+                <aside class="sip-info-panel">
+                    <h2 class="card-title">How This SIP Calculator Works</h2>
+                    <p class="card-desc">
+                        This SIP calculator assumes a fixed monthly contribution and a constant annual return rate,
+                        converted to monthly compounding. It uses the standard SIP formula used by most
+                        Indian mutual fund calculators.
+                    </p>
+
+                    <p style="font-size:0.85rem;color:#4b5563;">
+                        <strong>Formula used (monthly SIP):</strong><br />
+                        Future Value = SIP × ((1 + r)<sup>n</sup> − 1) / r × (1 + r)<br />
+                        where <strong>r</strong> is monthly return (annual % / 12 / 100) and
+                        <strong>n</strong> is total number of months.
+                    </p>
+
+                    <p style="font-size:0.8rem;color:#6b7280;">
+                        The growth chart compares how much you have actually invested vs the estimated value of your
+                        portfolio each year. The doughnut chart splits the final amount into contribution vs profit,
+                        so you can clearly see how much compounding has added over and above your SIP amount.
+                    </p>
+
+                    <p style="font-size:0.8rem;color:#6b7280;">
+                        This is an approximate model for educational use only. Real mutual fund returns fluctuate
+                        based on market conditions and are not guaranteed. Always check with your fund house or
+                        advisor before making final investment decisions.
+                    </p>
+                </aside>
+
+                <!-- 🔹 BOTTOM-LEFT: Line chart (growth over time) -->
+                <div id="sipChartBox" class="chart-box sip-chart">
+                    <h3 class="chart-title">SIP Growth Over Time</h3>
+                    <div class="chart-container">
+                        <canvas id="sipChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 🔹 BOTTOM-RIGHT: Doughnut chart (invested vs profit) -->
+                <div id="sipCompositionBox" class="chart-box sip-chart">
+                    <h3 class="chart-title">Invested Amount vs Profit</h3>
+                    <div class="chart-container">
+                        <canvas id="sipCompositionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BOTTOM AD SLOT -->
+    <div class="ad-slot ad-bottom">
+        <div class="ad-label">Ad space</div>
+    </div>
+
+    <!-- Extra SEO text (helps search + chat models understand page) -->
+    <section class="seo-section">
+        <div class="seo-inner">
+            <h2>Plan Your Investments With a SIP Calculator</h2>
+            <p>
+                A SIP (Systematic Investment Plan) lets you invest a fixed amount every month into mutual funds.
+                This SIP calculator for India helps you estimate the maturity value of your SIP, the total amount
+                you invest over the years and the profit generated due to compounding.
+            </p>
+
+            <h3>Inputs Required</h3>
+            <p>
+                You only need three inputs – monthly SIP amount, expected annual return (% per year) and investment
+                period in years. The tool converts the annual return into a monthly rate and applies monthly
+                compounding to estimate growth.
+            </p>
+
+            <h3>Understanding the Graphs</h3>
+            <p>
+                The first graph shows year-wise SIP growth, comparing total invested amount with the estimated value.
+                The second graph shows how much of the final corpus is your own contribution and how much is profit.
+                This makes it easier to visualise the power of long-term investing.
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 Investment & Tax Calculator (India)</p>
+    </footer>
+
+    <!-- SIP-specific JS file that calls your backend and renders the charts -->
+    <script src="sip.js"></script>
+</body>
+</html>

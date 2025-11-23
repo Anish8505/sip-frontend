@@ -1,11 +1,53 @@
-// Use your live backend URL on Render
+// Backend API (for SIP) – still points to Render
 const API_BASE_URL = "https://sip-calculator-api.onrender.com";
 
-// ---------------- SIP CALCULATOR ----------------
+let sipChartInstance = null;
+let lumpsumChartInstance = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupTabs();
+});
+
+/* ---------------- TABS ---------------- */
+
+function setupTabs() {
+    const tabs = document.querySelectorAll(".nav-tab");
+    const sections = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = tab.getAttribute("data-target");
+
+            // Activate tab button
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            // Activate corresponding section
+            sections.forEach(sec => {
+                if (sec.id === targetId) {
+                    sec.classList.add("active");
+                } else {
+                    sec.classList.remove("active");
+                }
+            });
+
+            // Scroll a bit below header for better UX
+            window.scrollTo({
+                top: document.querySelector(".hero").offsetHeight + 8,
+                behavior: "smooth"
+            });
+        });
+    });
+}
+
+/* --------------- SIP CALCULATOR (+ chart) --------------- */
+
 function calculate() {
-    const monthly = document.getElementById("monthly").value;
-    const rate = document.getElementById("rate").value;
-    const years = document.getElementById("years").value;
+    const monthly = parseFloat(document.getElementById("monthly").value);
+    const rate = parseFloat(document.getElementById("rate").value);
+    const years = parseInt(document.getElementById("years").value, 10);
+
     const errorDiv = document.getElementById("error");
     const resultBox = document.getElementById("resultBox");
 
@@ -17,12 +59,12 @@ function calculate() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (monthly <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
+    // Call backend API for final numbers (as before)
     fetch(`${API_BASE_URL}/api/sip?monthly=${monthly}&rate=${rate}&years=${years}`)
         .then(res => {
             if (!res.ok) {
@@ -33,23 +75,93 @@ function calculate() {
         .then(data => {
             resultBox.style.display = "block";
             resultBox.innerHTML = `
-                <h3>SIP Results</h3>
+                <h3>Results</h3>
                 <p><strong>Invested Amount:</strong> ₹${data.investedAmount.toLocaleString("en-IN")}</p>
                 <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
                 <p><strong>Total Profit:</strong> ₹${data.profit.toLocaleString("en-IN")}</p>
             `;
+
+            // Build year-wise data for graph (simulate monthly compounding)
+            const labels = [];
+            const investedArr = [];
+            const valueArr = [];
+
+            let invested = 0;
+            let currentValue = 0;
+            const monthlyRate = rate / 12 / 100;
+
+            for (let y = 1; y <= years; y++) {
+                for (let m = 1; m <= 12; m++) {
+                    invested += monthly;
+                    currentValue = (currentValue + monthly) * (1 + monthlyRate);
+                }
+                labels.push(`Year ${y}`);
+                investedArr.push(Math.round(invested));
+                valueArr.push(Math.round(currentValue));
+            }
+
+            renderSipChart(labels, investedArr, valueArr);
         })
         .catch(err => {
             console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the SIP API.";
+            errorDiv.textContent = "Something went wrong while calling the API.";
         });
 }
 
-// ---------------- LUMPSUM CALCULATOR ----------------
+function renderSipChart(labels, investedArr, valueArr) {
+    const canvas = document.getElementById("sipChart");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const ctx = canvas.getContext("2d");
+
+    if (sipChartInstance) {
+        sipChartInstance.destroy();
+    }
+
+    sipChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "Total Invested",
+                    data: investedArr,
+                    borderWidth: 2,
+                    tension: 0.25
+                },
+                {
+                    label: "Estimated Value",
+                    data: valueArr,
+                    borderWidth: 2,
+                    tension: 0.25
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: (value) => "₹" + value.toLocaleString("en-IN")
+                    }
+                }
+            }
+        }
+    });
+}
+
+/* --------------- LUMPSUM CALCULATOR (+ chart) --------------- */
+
 function calculateLumpsum() {
-    const principal = document.getElementById("lsPrincipal").value;
-    const rate = document.getElementById("lsRate").value;
-    const years = document.getElementById("lsYears").value;
+    const principal = parseFloat(document.getElementById("lsPrincipal").value);
+    const rate = parseFloat(document.getElementById("lsRate").value);
+    const years = parseInt(document.getElementById("lsYears").value, 10);
+
     const errorDiv = document.getElementById("lsError");
     const resultBox = document.getElementById("lsResultBox");
 
@@ -61,39 +173,91 @@ function calculateLumpsum() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (principal <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/lumpsum?principal=${principal}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>Lumpsum Results</h3>
-                <p><strong>Invested Amount:</strong> ₹${data.investedAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Total Profit:</strong> ₹${data.profit.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the Lumpsum API.";
-        });
+    const r = rate / 100;
+    const maturity = principal * Math.pow(1 + r, years);
+    const profit = maturity - principal;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Invested Amount:</strong> ₹${principal.toLocaleString("en-IN")}</p>
+        <p><strong>Maturity Amount:</strong> ₹${maturity.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Total Profit:</strong> ₹${profit.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
+
+    // Graph: same principal each year, value growing
+    const labels = [];
+    const investedArr = [];
+    const valueArr = [];
+    let value = principal;
+
+    for (let y = 1; y <= years; y++) {
+        value = value * (1 + r);
+        labels.push(`Year ${y}`);
+        investedArr.push(principal);
+        valueArr.push(Math.round(value));
+    }
+
+    renderLumpsumChart(labels, investedArr, valueArr);
 }
 
-// ---------------- FD CALCULATOR ----------------
+function renderLumpsumChart(labels, investedArr, valueArr) {
+    const canvas = document.getElementById("lumpsumChart");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const ctx = canvas.getContext("2d");
+
+    if (lumpsumChartInstance) {
+        lumpsumChartInstance.destroy();
+    }
+
+    lumpsumChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "Invested",
+                    data: investedArr,
+                    borderWidth: 2,
+                    tension: 0.25
+                },
+                {
+                    label: "Estimated Value",
+                    data: valueArr,
+                    borderWidth: 2,
+                    tension: 0.25
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: "bottom" }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: (value) => "₹" + value.toLocaleString("en-IN")
+                    }
+                }
+            }
+        }
+    });
+}
+
+/* --------------- FD CALCULATOR --------------- */
+
 function calculateFd() {
-    const principal = document.getElementById("fdPrincipal").value;
-    const rate = document.getElementById("fdRate").value;
-    const years = document.getElementById("fdYears").value;
+    const principal = parseFloat(document.getElementById("fdPrincipal").value);
+    const rate = parseFloat(document.getElementById("fdRate").value);
+    const years = parseInt(document.getElementById("fdYears").value, 10);
+
     const errorDiv = document.getElementById("fdError");
     const resultBox = document.getElementById("fdResultBox");
 
@@ -105,39 +269,32 @@ function calculateFd() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (principal <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/fd?principal=${principal}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>FD Results</h3>
-                <p><strong>Invested Amount:</strong> ₹${data.investedAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Total Interest Earned:</strong> ₹${data.profit.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the FD API.";
-        });
+    const n = 4; // quarterly compounding
+    const r = rate / 100;
+    const maturity = principal * Math.pow(1 + r / n, n * years);
+    const profit = maturity - principal;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Principal:</strong> ₹${principal.toLocaleString("en-IN")}</p>
+        <p><strong>Maturity Amount:</strong> ₹${maturity.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Interest Earned:</strong> ₹${profit.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
 }
 
-// ---------------- RD CALCULATOR ----------------
+/* --------------- RD CALCULATOR --------------- */
+
 function calculateRd() {
-    const monthly = document.getElementById("rdMonthly").value;
-    const rate = document.getElementById("rdRate").value;
-    const years = document.getElementById("rdYears").value;
+    const monthly = parseFloat(document.getElementById("rdMonthly").value);
+    const rate = parseFloat(document.getElementById("rdRate").value);
+    const years = parseInt(document.getElementById("rdYears").value, 10);
+
     const errorDiv = document.getElementById("rdError");
     const resultBox = document.getElementById("rdResultBox");
 
@@ -149,39 +306,34 @@ function calculateRd() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (monthly <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/rd?monthly=${monthly}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>RD Results</h3>
-                <p><strong>Total Deposited:</strong> ₹${data.investedAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Total Interest Earned:</strong> ₹${data.profit.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the RD API.";
-        });
+    const months = years * 12;
+    const monthlyRate = rate / (12 * 100);
+
+    const maturity = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+    const invested = monthly * months;
+    const profit = maturity - invested;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Total Deposited:</strong> ₹${invested.toLocaleString("en-IN")}</p>
+        <p><strong>Maturity Amount:</strong> ₹${maturity.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Interest Earned:</strong> ₹${profit.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
 }
 
-// ---------------- PPF CALCULATOR (YEARLY) ----------------
+/* --------------- PPF (yearly contribution) --------------- */
+
 function calculatePpf() {
-    const yearly = document.getElementById("ppfYearly").value;
-    const rate = document.getElementById("ppfRate").value;
-    const years = document.getElementById("ppfYears").value;
+    const yearly = parseFloat(document.getElementById("ppfYearly").value);
+    const rate = parseFloat(document.getElementById("ppfRate").value);
+    const years = parseInt(document.getElementById("ppfYears").value, 10);
+
     const errorDiv = document.getElementById("ppfError");
     const resultBox = document.getElementById("ppfResultBox");
 
@@ -193,41 +345,38 @@ function calculatePpf() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (yearly <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/ppf?yearly=${yearly}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>PPF Results (Yearly Investment)</h3>
-                <p><strong>Yearly Investment:</strong> ₹${data.yearlyInvestment.toLocaleString("en-IN")}</p>
-                <p><strong>Time Period:</strong> ${data.tenureYears} years</p>
-                <p><strong>Total Invested:</strong> ₹${data.totalInvestment.toLocaleString("en-IN")}</p>
-                <p><strong>Total Interest Earned:</strong> ₹${data.totalInterest.toLocaleString("en-IN")}</p>
-                <p><strong>Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the PPF API.";
-        });
+    const r = rate / 100;
+    let maturity = 0;
+
+    // yearly contribution at end of each year (approx)
+    for (let i = 1; i <= years; i++) {
+        maturity = (maturity + yearly) * (1 + r);
+    }
+
+    const invested = yearly * years;
+    const profit = maturity - invested;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Total Invested:</strong> ₹${invested.toLocaleString("en-IN")}</p>
+        <p><strong>Estimated Maturity:</strong> ₹${maturity.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Total Interest:</strong> ₹${profit.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
 }
 
-// ---------------- EMI CALCULATOR ----------------
+/* --------------- EMI CALCULATOR --------------- */
+
 function calculateEmi() {
-    const principal = document.getElementById("emiPrincipal").value;
-    const rate = document.getElementById("emiRate").value;
-    const years = document.getElementById("emiYears").value;
+    const principal = parseFloat(document.getElementById("emiPrincipal").value);
+    const rate = parseFloat(document.getElementById("emiRate").value);
+    const years = parseInt(document.getElementById("emiYears").value, 10);
+
     const errorDiv = document.getElementById("emiError");
     const resultBox = document.getElementById("emiResultBox");
 
@@ -239,52 +388,35 @@ function calculateEmi() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (principal <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    const yearsNum = Number(years);
-    const months = yearsNum * 12;
+    const monthlyRate = rate / (12 * 100);
+    const months = years * 12;
 
-    fetch(`${API_BASE_URL}/api/emi?principal=${principal}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            const principalVal = data.investedAmount;
-            const totalPaid = data.maturityAmount;
-            const interest = data.profit;
+    const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+                (Math.pow(1 + monthlyRate, months) - 1);
 
-            const emi = totalPaid / months;
-            const emiFormatted = emi.toLocaleString("en-IN", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
+    const totalPayment = emi * months;
+    const totalInterest = totalPayment - principal;
 
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>EMI Results</h3>
-                <p><strong>Monthly EMI:</strong> ₹${emiFormatted}</p>
-                <p><strong>Total Amount Paid:</strong> ₹${totalPaid.toLocaleString("en-IN")}</p>
-                <p><strong>Total Interest Paid:</strong> ₹${interest.toLocaleString("en-IN")}</p>
-                <p><strong>Loan Amount (Principal):</strong> ₹${principalVal.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the EMI API.";
-        });
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Monthly EMI:</strong> ₹${emi.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Total Interest:</strong> ₹${totalInterest.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Total Payment:</strong> ₹${totalPayment.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
 }
 
-// ---------------- INCOME TAX CALCULATOR (INDIA) ----------------
+/* --------------- INCOME TAX CALCULATOR (approx India) --------------- */
+
 function calculateTax() {
-    const income = document.getElementById("taxIncome").value;
+    const income = parseFloat(document.getElementById("taxIncome").value);
     const regime = document.getElementById("taxRegime").value;
+
     const errorDiv = document.getElementById("taxError");
     const resultBox = document.getElementById("taxResultBox");
 
@@ -292,47 +424,73 @@ function calculateTax() {
     resultBox.style.display = "none";
     resultBox.innerHTML = "";
 
-    if (!income) {
-        errorDiv.textContent = "Please enter your annual taxable income.";
+    if (!income || income <= 0) {
+        errorDiv.textContent = "Please enter a valid taxable income.";
         return;
     }
 
-    if (income <= 0) {
-        errorDiv.textContent = "Income must be greater than zero.";
-        return;
-    }
+    let tax = 0;
 
-    fetch(`${API_BASE_URL}/api/tax?income=${income}&regime=${regime}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
+    if (regime === "new") {
+        // Simplified FY 2023-24 new regime slabs (approx)
+        const slabs = [
+            { upTo: 300000, rate: 0 },
+            { upTo: 600000, rate: 0.05 },
+            { upTo: 900000, rate: 0.10 },
+            { upTo: 1200000, rate: 0.15 },
+            { upTo: 1500000, rate: 0.20 },
+            { upTo: Infinity, rate: 0.30 }
+        ];
+        let prev = 0;
+        for (const slab of slabs) {
+            if (income > prev) {
+                const taxable = Math.min(income, slab.upTo) - prev;
+                tax += taxable * slab.rate;
+                prev = slab.upTo;
             }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>Income Tax Results (${data.regime === "new" ? "New Regime" : "Old Regime"})</h3>
-                <p><strong>Annual Income:</strong> ₹${data.income.toLocaleString("en-IN")}</p>
-                <p><strong>Estimated Tax Payable (incl. cess):</strong> ₹${data.tax.toLocaleString("en-IN")}</p>
-                <p><strong>Net Income After Tax:</strong> ₹${data.netIncome.toLocaleString("en-IN")}</p>
-                <p><strong>Effective Tax Rate:</strong> ${data.effectiveRate.toFixed(2)}%</p>
-                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
-                    This is an approximate calculation using simple slabs and 4% cess, for learning and planning only.
-                </p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the Tax API.";
-        });
+        }
+    } else {
+        // Very simplified old regime (no deductions considered)
+        const slabs = [
+            { upTo: 250000, rate: 0 },
+            { upTo: 500000, rate: 0.05 },
+            { upTo: 1000000, rate: 0.20 },
+            { upTo: Infinity, rate: 0.30 }
+        ];
+        let prev = 0;
+        for (const slab of slabs) {
+            if (income > prev) {
+                const taxable = Math.min(income, slab.upTo) - prev;
+                tax += taxable * slab.rate;
+                prev = slab.upTo;
+            }
+        }
+    }
+
+    const cess = tax * 0.04;
+    const totalTax = tax + cess;
+    const netIncome = income - totalTax;
+    const effectiveRate = (totalTax / income) * 100;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Approximate Tax</h3>
+        <p><strong>Total Tax (incl. 4% cess):</strong> ₹${totalTax.toFixed(0).toLocaleString("en-IN")}</p>
+        <p><strong>Net Income After Tax:</strong> ₹${netIncome.toFixed(0).toLocaleString("en-IN")}</p>
+        <p><strong>Effective Tax Rate:</strong> ${effectiveRate.toFixed(2)}%</p>
+        <p style="font-size:0.78rem;margin-top:4px;color:#6b7280;">
+            Note: This is a simplified estimate without deductions / exemptions. Please consult a CA or official income tax tools before filing.
+        </p>
+    `;
 }
 
-// ---------------- CAGR CALCULATOR ----------------
+/* --------------- CAGR CALCULATOR --------------- */
+
 function calculateCagr() {
-    const initial = document.getElementById("cagrInitial").value;
-    const finalVal = document.getElementById("cagrFinal").value;
-    const years = document.getElementById("cagrYears").value;
+    const initial = parseFloat(document.getElementById("cagrInitial").value);
+    const finalVal = parseFloat(document.getElementById("cagrFinal").value);
+    const years = parseInt(document.getElementById("cagrYears").value, 10);
+
     const errorDiv = document.getElementById("cagrError");
     const resultBox = document.getElementById("cagrResultBox");
 
@@ -344,42 +502,27 @@ function calculateCagr() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (initial <= 0 || finalVal <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/cagr?initial=${initial}&final=${finalVal}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>CAGR Results</h3>
-                <p><strong>Initial Value:</strong> ₹${data.initialAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Final Value:</strong> ₹${data.finalAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Time Period:</strong> ${data.years} years</p>
-                <p><strong>Total Gain:</strong> ₹${data.totalGain.toLocaleString("en-IN")}</p>
-                <p><strong>Total Return:</strong> ${data.totalReturnPercent.toFixed(2)}%</p>
-                <p><strong>CAGR (per year):</strong> ${data.cagrPercent.toFixed(2)}%</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the CAGR API.";
-        });
+    const cagr = Math.pow(finalVal / initial, 1 / years) - 1;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>CAGR:</strong> ${(cagr * 100).toFixed(2)}% per year</p>
+    `;
 }
 
-// ---------------- RETIREMENT CORPUS CALCULATOR ----------------
+/* --------------- RETIREMENT CORPUS --------------- */
+
 function calculateRetirement() {
-    const expense = document.getElementById("retExpense").value;
-    const inflation = document.getElementById("retInflation").value;
-    const years = document.getElementById("retYears").value;
+    const expense = parseFloat(document.getElementById("retExpense").value);
+    const inflation = parseFloat(document.getElementById("retInflation").value);
+    const years = parseInt(document.getElementById("retYears").value, 10);
+
     const errorDiv = document.getElementById("retError");
     const resultBox = document.getElementById("retResultBox");
 
@@ -391,46 +534,37 @@ function calculateRetirement() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (expense <= 0 || inflation < 0 || years <= 0) {
-        errorDiv.textContent = "Values must be valid and greater than zero.";
+        errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/retirement?expense=${expense}&inflation=${inflation}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>Retirement Corpus Estimate</h3>
-                <p><strong>Monthly Expense Today:</strong> ₹${data.monthlyExpenseToday.toLocaleString("en-IN")}</p>
-                <p><strong>Years Until Retirement:</strong> ${data.years} years</p>
-                <p><strong>Expected Inflation:</strong> ${data.inflationRate.toFixed(2)}% per year</p>
-                <p><strong>Estimated Monthly Expense at Retirement:</strong> ₹${data.expenseAtRetirement.toLocaleString("en-IN")}</p>
-                <p><strong>Estimated Yearly Expense at Retirement:</strong> ₹${data.yearlyExpenseAtRetirement.toLocaleString("en-IN")}</p>
-                <p><strong>Approx. Retirement Corpus Needed:</strong> ₹${data.requiredCorpus.toLocaleString("en-IN")}</p>
-                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
-                    This is a simple estimate using inflation and a 4% safe withdrawal rule.
-                    Actual retirement needs depend on lifestyle, returns and longevity. Please treat this as a planning aid, not a final recommendation.
-                </p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the Retirement API.";
-        });
+    const inflRate = inflation / 100;
+    const expenseAtRetirement = expense * Math.pow(1 + inflRate, years);
+
+    // assume need 25x final monthly expense as rough corpus
+    const corpusNeeded = expenseAtRetirement * 12 * 25;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results (rough estimate)</h3>
+        <p><strong>Monthly Expense at Retirement (today's ₹${expense.toLocaleString("en-IN")}):</strong>
+           ₹${expenseAtRetirement.toFixed(0).toLocaleString("en-IN")}</p>
+        <p><strong>Approx. Retirement Corpus Needed:</strong>
+           ₹${corpusNeeded.toFixed(0).toLocaleString("en-IN")}</p>
+        <p style="font-size:0.78rem;margin-top:4px;color:#6b7280;">
+            Assumes 25x annual expenses rule. Adjust based on your risk profile, expected returns and desired lifestyle.
+        </p>
+    `;
 }
 
-// ---------------- NPS CALCULATOR ----------------
+/* --------------- NPS CALCULATOR --------------- */
+
 function calculateNps() {
-    const monthly = document.getElementById("npsMonthly").value;
-    const rate = document.getElementById("npsRate").value;
-    const years = document.getElementById("npsYears").value;
+    const monthly = parseFloat(document.getElementById("npsMonthly").value);
+    const rate = parseFloat(document.getElementById("npsRate").value);
+    const years = parseInt(document.getElementById("npsYears").value, 10);
+
     const errorDiv = document.getElementById("npsError");
     const resultBox = document.getElementById("npsResultBox");
 
@@ -442,42 +576,34 @@ function calculateNps() {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
     if (monthly <= 0 || rate <= 0 || years <= 0) {
         errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/nps?monthly=${monthly}&rate=${rate}&years=${years}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>NPS Results</h3>
-                <p><strong>Monthly Contribution:</strong> ₹${data.monthlyContribution.toLocaleString("en-IN")}</p>
-                <p><strong>Years to Retirement:</strong> ${data.years} years</p>
-                <p><strong>Expected Return:</strong> ${data.rate.toFixed(2)}% per year</p>
-                <p><strong>Total Amount Invested:</strong> ₹${data.totalInvestment.toLocaleString("en-IN")}</p>
-                <p><strong>Estimated Maturity Amount:</strong> ₹${data.maturityAmount.toLocaleString("en-IN")}</p>
-                <p><strong>Total Gain:</strong> ₹${data.totalGain.toLocaleString("en-IN")}</p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the NPS API.";
-        });
+    const months = years * 12;
+    const monthlyRate = rate / (12 * 100);
+
+    const maturity = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+    const invested = monthly * months;
+    const profit = maturity - invested;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results</h3>
+        <p><strong>Total Contribution:</strong> ₹${invested.toLocaleString("en-IN")}</p>
+        <p><strong>Estimated Corpus:</strong> ₹${maturity.toFixed(2).toLocaleString("en-IN")}</p>
+        <p><strong>Estimated Growth:</strong> ₹${profit.toFixed(2).toLocaleString("en-IN")}</p>
+    `;
 }
 
-// ---------------- SWP CALCULATOR ----------------
+/* --------------- SWP CALCULATOR --------------- */
+
 function calculateSwp() {
-    const corpus = document.getElementById("swpCorpus").value;
-    const rate = document.getElementById("swpRate").value;
-    const monthly = document.getElementById("swpMonthly").value;
+    const corpus = parseFloat(document.getElementById("swpCorpus").value);
+    const rate = parseFloat(document.getElementById("swpRate").value);
+    const monthlyWithdrawal = parseFloat(document.getElementById("swpMonthly").value);
+
     const errorDiv = document.getElementById("swpError");
     const resultBox = document.getElementById("swpResultBox");
 
@@ -485,44 +611,32 @@ function calculateSwp() {
     resultBox.style.display = "none";
     resultBox.innerHTML = "";
 
-    if (!corpus || !rate || !monthly) {
+    if (!corpus || !rate || !monthlyWithdrawal) {
         errorDiv.textContent = "Please fill all the fields.";
         return;
     }
-
-    if (corpus <= 0 || rate < 0 || monthly <= 0) {
-        errorDiv.textContent = "Values must be valid and greater than zero.";
+    if (corpus <= 0 || rate < 0 || monthlyWithdrawal <= 0) {
+        errorDiv.textContent = "Values must be greater than zero.";
         return;
     }
 
-    fetch(`${API_BASE_URL}/api/swp?corpus=${corpus}&rate=${rate}&monthly=${monthly}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("API error: " + res.status);
-            }
-            return res.json();
-        })
-        .then(data => {
-            const years = data.yearsLasted;
-            const months = data.monthsLasted;
+    const monthlyRate = rate / (12 * 100);
+    let balance = corpus;
+    let months = 0;
 
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h3>SWP Results</h3>
-                <p><strong>Starting Corpus:</strong> ₹${data.startingCorpus.toLocaleString("en-IN")}</p>
-                <p><strong>Monthly Withdrawal:</strong> ₹${data.monthlyWithdrawal.toLocaleString("en-IN")}</p>
-                <p><strong>Expected Return:</strong> ${data.rate.toFixed(2)}% per year</p>
-                <p><strong>Total Amount Withdrawn:</strong> ₹${data.totalWithdrawn.toLocaleString("en-IN")}</p>
-                <p><strong>Total Interest Earned:</strong> ₹${data.totalInterestEarned.toLocaleString("en-IN")}</p>
-                <p><strong>Corpus lasts for approx:</strong> ${months} months (~${years.toFixed(2)} years)</p>
-                <p style="margin-top:6px;font-size:0.8rem;color:#6b7280;">
-                    This is a simplified SWP estimate assuming fixed returns and withdrawals.
-                    Real-life results will vary with market performance and actual withdrawal patterns.
-                </p>
-            `;
-        })
-        .catch(err => {
-            console.error(err);
-            errorDiv.textContent = "Something went wrong while calling the SWP API.";
-        });
+    while (balance > 0 && months < 2000) { // safety cap
+        balance = balance * (1 + monthlyRate) - monthlyWithdrawal;
+        months++;
+        if (balance <= 0) break;
+    }
+
+    const yearsLasted = Math.floor(months / 12);
+    const extraMonths = months % 12;
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h3>Results (approximate)</h3>
+        <p><strong>Corpus lasts for:</strong> ${yearsLasted} years ${extraMonths} months (approx.)</p>
+        <p><strong>Total Withdrawals Taken:</strong> ₹${(months * monthlyWithdrawal).toFixed(0).toLocaleString("en-IN")}</p>
+    `;
 }

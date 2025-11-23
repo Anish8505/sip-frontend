@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>RD Calculator (India) – Recurring Deposit Maturity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description"
+          content="Free RD Calculator for India. Estimate recurring deposit maturity amount, total deposit and interest earned with interactive charts." />
+    <meta name="keywords"
+          content="rd calculator india, recurring deposit calculator, rd maturity amount" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">RD Calculator (India)</h1>
+                <p class="hero-subtitle">
+                    Estimate recurring deposit maturity value and interest with monthly contributions.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html" class="active">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<main class="main-layout">
+    <section class="card sip-card" id="rd">
+        <div class="sip-grid">
+            <!-- TOP-LEFT: Calculator + results -->
+            <div class="sip-main-panel">
+                <h2 class="card-title">RD Calculator</h2>
+                <p class="card-desc">
+                    Enter your monthly RD deposit, annual interest rate and tenure in years.
+                    Click “Calculate RD” to see total deposited amount, maturity value and interest earned.
+                </p>
+
+                <div class="field">
+                    <label for="rdMonthly">Monthly Deposit (₹)</label>
+                    <input type="number" id="rdMonthly" placeholder="e.g. 5000" />
+                </div>
+
+                <div class="field">
+                    <label for="rdRate">Interest Rate (% per year)</label>
+                    <input type="number" id="rdRate" placeholder="e.g. 7" />
+                </div>
+
+                <div class="field">
+                    <label for="rdYears">Time Period (years)</label>
+                    <input type="number" id="rdYears" placeholder="e.g. 5" />
+                </div>
+
+                <button class="primary-btn" onclick="calculateRd()">Calculate RD</button>
+
+                <div id="rdError" class="error-text"></div>
+                <div id="rdResultBox" class="result-box"></div>
+            </div>
+
+            <!-- TOP-RIGHT: Info / explanation -->
+            <div class="sip-info-panel">
+                <h2 class="card-title">How Recurring Deposits Work</h2>
+                <p class="card-desc">
+                    In an RD you deposit a fixed amount every month. The bank pays interest on the
+                    accumulated balance. This calculator approximates monthly compounding to show
+                    how your corpus grows year by year.
+                </p>
+
+                <p style="font-size:0.85rem; color:#4b5563;">
+                    <strong>Formula used (approximate monthly compounding):</strong><br />
+                    Each monthly deposit grows at a monthly rate
+                    <code>r = annual&nbsp;rate / 12 / 100</code> until maturity.<br />
+                    Future Value &asymp; monthly&nbsp;deposit ×
+                    <span>((1 + r)<sup>n</sup> − 1) / r × (1 + r)</span>,<br />
+                    where <strong>n</strong> is number of months.
+                </p>
+
+                <p style="font-size:0.8rem; color:#6b7280;">
+                    The growth chart compares how much you have actually deposited vs the estimated
+                    maturity value over time. The doughnut chart splits the final amount into total
+                    deposits vs interest earned, so you can clearly see the benefit of compounding.
+                </p>
+
+                <p style="font-size:0.78rem; color:#6b7280;">
+                    Exact RD formulas and interest credit frequency can differ between banks and Post
+                    Office schemes. Treat this as an educational tool, not a legal or tax document.
+                </p>
+            </div>
+
+            <!-- BOTTOM-LEFT: Growth chart -->
+            <div id="rdGrowthBox" class="chart-box sip-chart">
+                <h3 class="chart-title">RD Growth Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="rdGrowthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- BOTTOM-RIGHT: Composition chart -->
+            <div id="rdCompositionBox" class="chart-box sip-chart">
+                <h3 class="chart-title">Total Deposits vs Interest</h3>
+                <div class="chart-container">
+                    <canvas id="rdCompositionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>Recurring Deposit (RD) Calculator – India</h2>
+        <p>
+            Use this RD calculator to estimate how much your monthly deposits can grow into at maturity,
+            and how much of the final amount is interest earned.
+        </p>
+
+        <h3>Inputs</h3>
+        <ul>
+            <li>Monthly deposit amount (₹)</li>
+            <li>Expected annual interest rate (%)</li>
+            <li>Tenure in years</li>
+        </ul>
+
+        <h3>Outputs</h3>
+        <ul>
+            <li>Total amount deposited</li>
+            <li>Estimated maturity amount</li>
+            <li>Total interest earned</li>
+            <li>Year-wise growth chart</li>
+            <li>Deposits vs interest composition chart</li>
+        </ul>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="rd.js"></script>
+</body>
+</html>

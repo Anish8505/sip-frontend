@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>CAGR Calculator (India) – Compound Annual Growth Rate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Basic SEO -->
+    <meta name="description"
+          content="CAGR Calculator for India. Enter initial value, final value and years to find compound annual growth rate with a value growth chart." />
+    <meta name="keywords"
+          content="cagr calculator india, compound annual growth rate, investment return calculator, sip cagr, mutual fund cagr" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CPJLGZ178"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8CPJLGZ178');
+    </script>
+
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-inner">
+        <div class="brand-row">
+            <div class="brand-logo">₹</div>
+            <div class="brand-text">
+                <h1 class="hero-title">CAGR Calculator</h1>
+                <p class="hero-subtitle">
+                    Find the compound annual growth rate between your starting and ending investment values.
+                </p>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sip.html">SIP</a>
+            <a href="lumpsum.html">Lumpsum</a>
+            <a href="fd.html">FD</a>
+            <a href="rd.html">RD</a>
+            <a href="ppf.html">PPF</a>
+            <a href="emi.html">EMI</a>
+            <a href="tax.html">Tax</a>
+            <a href="cagr.html" class="active">CAGR</a>
+            <a href="retirement.html">Retirement</a>
+            <a href="nps.html">NPS</a>
+            <a href="swp.html">SWP</a>
+        </nav>
+    </div>
+</header>
+
+<div class="ad-slot ad-top">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<!-- Single-page layout like SIP/EMI -->
+<main class="main-layout single">
+    <section class="card card-narrow" id="cagr">
+        <!-- Top: calculator (left) + info (right) -->
+        <div class="card-grid">
+            <!-- LEFT: Inputs + results -->
+            <div class="card-grid__left">
+                <h2 class="card-title">CAGR Calculator</h2>
+                <p class="card-desc">
+                    Enter the initial value, final value and time period in years to calculate CAGR.
+                </p>
+
+                <div class="field">
+                    <label for="cagrInitial">Initial Value (₹)</label>
+                    <input type="number" id="cagrInitial" placeholder="e.g. 100000" />
+                </div>
+
+                <div class="field">
+                    <label for="cagrFinal">Final Value (₹)</label>
+                    <input type="number" id="cagrFinal" placeholder="e.g. 250000" />
+                </div>
+
+                <div class="field">
+                    <label for="cagrYears">Time Period (years)</label>
+                    <input type="number" id="cagrYears" placeholder="e.g. 5" />
+                </div>
+
+                <button class="primary-btn" onclick="calculateCagr()">Calculate CAGR</button>
+
+                <div id="cagrError" class="error-text"></div>
+                <div id="cagrResultBox" class="result-box"></div>
+            </div>
+
+            <!-- RIGHT: Info text (moved from second card) -->
+            <div class="card-grid__right">
+                <h2 class="card-title">What Is CAGR?</h2>
+                <p class="card-desc">
+                    CAGR (Compound Annual Growth Rate) tells you the constant annual growth rate of an investment
+                    from its starting value to its ending value, assuming it grows at a steady rate every year.
+                </p>
+                <p style="font-size:0.85rem;color:#4b5563;">
+                    Formula:<br/>
+                    CAGR = (Final / Initial)<sup>(1 / n)</sup> − 1<br/>
+                    where <strong>n</strong> is the number of years.
+                </p>
+                <p style="font-size:0.8rem;color:#6b7280;">
+                    Use CAGR to compare mutual funds, stocks or any long-term investments on a like-for-like basis.
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom: growth chart -->
+        <div id="cagrChartBox" class="chart-box">
+            <h3 class="chart-title">Value Growth Over Time</h3>
+            <div class="chart-container">
+                <canvas id="cagrChart"></canvas>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="ad-slot ad-bottom">
+    <div class="ad-label">Ad space</div>
+</div>
+
+<section class="seo-section">
+    <div class="seo-inner">
+        <h2>CAGR Calculator for Indian Investors</h2>
+        <p>
+            This CAGR calculator helps you quickly understand how fast your money has grown each year
+            between two points in time. Instead of only looking at total return, CAGR shows the smooth
+            annualised growth rate which is easier to compare across different investments and time periods.
+        </p>
+        <p>
+            You can use it for mutual funds, stocks, SIP portfolios, real estate or any asset where you know
+            the starting value, ending value and the number of years.
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Investment & Tax Calculator (India)</p>
+</footer>
+
+<script src="cagr.js"></script>
+</body>
+</html>
